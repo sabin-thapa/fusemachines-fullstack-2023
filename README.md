@@ -101,21 +101,21 @@ A module is a reusable chunk of code that has its own context. That way modules 
 
 In the example above, we saw the commonJS syntax of exporting modules. Now, let's see the ES6 syntax: <br />
      
-     ```
+```
      //test.js
      export const action = () => {
           // code here
      }
-     
+
      ```
      To import we use:
-     ```
-     import {action} from './test'
+```
+import {action} from './test'
      ```
 > Note: This is known as a named export
 
 ### File System
-With Nodeks, we can create, edit, remove, read, stream & do more stuffs with files.
+With Nodejs, we can create, edit, remove, read, stream & do more stuffs with files.
 > `fs` is the module used to work with files.
 
 - **Reading and writing a file**: <br />
@@ -229,57 +229,57 @@ However, this is the hard way of creating a server. There is an awesome packaged
 
 ### Express
 
-     Folder containing the [code]('./server/server.mjs')  
+Folder containing the [code]('./server/server.mjs')  
 
-     ```
-     npm i express body-parser morgan
-     ```
-     express: a framework to build servers
-     body-parser: a middleware that parses incoming requests
-     morgan: a middleware for logging incoming requests
+```
+npm i express body-parser morgan
+```
+**express**: a framework to build servers <br />
+**body-parser**: a middleware that parses incoming requests <br />
+**morgan**: a middleware for logging incoming requests
 
-     ```
-     import express from 'express'
-     import bp from 'body-parser'
-     import morgan from 'morgan'
+```
+import express from 'express'
+import bp from 'body-parser'
+import morgan from 'morgan'
 
-     const app = express()
+const app = express()
 
-     // Middlewares
-     app.use(bp.urlencoded({extended: true}))
-     app.use(bp.json())
-     app.use(morgan('dev'))
+// Middlewares
+app.use(bp.urlencoded({extended: true}))
+app.use(bp.json())
+app.use(morgan('dev'))
 
-     //Routes
+//Routes
 
-     const db = []
+const db = []
 
-     app.post('/todo', (req, res) => {
-     
-     const newTodo = {
-          id: Numner(Date.now()),
-          text: req.body.text
-     }
-     db.push(newTodo)
-     
-     res.json(newTodo)
-     })
+app.post('/todo', (req, res) => {
 
-     app.get('/todo', (req, res) => {
-     res.json(db)
-     })
+const newTodo = {
+     id: Numner(Date.now()),
+     text: req.body.text
+}
+db.push(newTodo)
 
-     app.get('/todo/:id', (req, res) => {
-     const todo = db.find(t => t.id === Number(req.params.id));
-     
-     if (todo) {
-          res.json({ data: todo });
-     } else {
-          res.status(404).json({ message: "Todo not found" });
-     }
-     });
+res.json(newTodo)
+})
 
-     app.listen(8000, () => {
-     console.log('EXPRESS SERVER RUNNING')
-     })
-     ```
+app.get('/todo', (req, res) => {
+res.json(db)
+})
+
+app.get('/todo/:id', (req, res) => {
+const todo = db.find(t => t.id === Number(req.params.id));
+
+if (todo) {
+     res.json({ data: todo });
+} else {
+     res.status(404).json({ message: "Todo not found" });
+}
+});
+
+app.listen(8000, () => {
+console.log('EXPRESS SERVER RUNNING')
+})
+```

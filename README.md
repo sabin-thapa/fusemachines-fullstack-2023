@@ -40,7 +40,7 @@ Many <meta> elements include name and content attributes:
 - `main` is for content unique to this page. Use <main> only once per page, and put it directly inside <body>. Ideally this shouldn't be nested within other elements.
       
 - `article` encloses a block of related content that makes sense on its own without the rest of the page (e.g., a single blog post). 
-- `section` is similar to <article>, but it is more for grouping together a single part of the page that constitutes one single piece of functionality 
+- `section` is similar to `article`, but it is more for grouping together a single part of the page that constitutes one single piece of functionality 
 - `aside` contains content that is not directly related to the main content but can provide additional information indirectly related to it (glossary entries, author biography, related links, etc.).
 - `header` represents a group of introductory content. If it is a child of `body` it defines the global header of a webpage, but if it's a child of an - `article` or `section` it defines a specific header for that section (try not to confuse this with titles and headings).
 - `footer` represents a group of end content for a page.

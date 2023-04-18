@@ -35,9 +35,10 @@ Many <meta> elements include name and content attributes:
 **content** specifies the actual meta content.
 
 ### Layout
-<br />
-> `nav` contains the main navigation functionality for the page. Secondary links, etc., would not go in the navigation.
+
+- `nav` contains the main navigation functionality for the page. Secondary links, etc., would not go in the navigation.
 - `main` is for content unique to this page. Use <main> only once per page, and put it directly inside <body>. Ideally this shouldn't be nested within other elements.
+      
 - `article` encloses a block of related content that makes sense on its own without the rest of the page (e.g., a single blog post). 
 - `section` is similar to <article>, but it is more for grouping together a single part of the page that constitutes one single piece of functionality 
 - `aside` contains content that is not directly related to the main content but can provide additional information indirectly related to it (glossary entries, author biography, related links, etc.).

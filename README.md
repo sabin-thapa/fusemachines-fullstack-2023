@@ -189,3 +189,97 @@ We can create a package(package.json) using the `npm init` command. Some popular
      npm install package1 package2 package3 --save
      ```
      _You can install as many packages with one command as you like. The --save flag is to let NPM know to update the package.json's dependency field with all of these packages. We need this because we don't want to check in the downloaded packages into source code for many reason. So how does anyone else on your team, or even you on another machine know what packages this app needs? Well NPM will save the package names and versions so NPM on another machine can look at that and install from there. Your package.json should have updated._
+
+### CLI
+A reddit CLI is built inside the  [folder]('./reddit-cli')
+
+### Servers
+
+- **http server**: <br/>
+     We can create a http server as follows:
+     1. Import the http module: <br />
+          ```
+          import http from 'http';
+          ```
+     2. Use the createServer method of https as: <br/>
+          ```
+               const server = http.createServer((req, res) => {
+               if (req.method === 'POST') {
+                    let body = ''
+
+                    req.on('data', chunk => {
+                         body += chunk
+                    })
+
+                    req.on('close', () => {
+                         console.log(body)
+                    })
+
+                    res.writeHead(201)
+                    res.end('hi')
+               }
+               })
+
+               server.listen(port, host, () => {
+               console.log(`Server running on ${host} and ${port}`)
+               })
+          ```
+
+However, this is the hard way of creating a server. There is an awesome packaged, express, that makes creating servers in Node.js a breeze. 
+
+### Express
+
+     Folder containing the [code]('./server/server.mjs')  
+
+     ```
+     npm i express body-parser morgan
+     ```
+     express: a framework to build servers
+     body-parser: a middleware that parses incoming requests
+     morgan: a middleware for logging incoming requests
+
+     ```
+     import express from 'express'
+     import bp from 'body-parser'
+     import morgan from 'morgan'
+
+     const app = express()
+
+     // Middlewares
+     app.use(bp.urlencoded({extended: true}))
+     app.use(bp.json())
+     app.use(morgan('dev'))
+
+     //Routes
+
+     const db = []
+
+     app.post('/todo', (req, res) => {
+     
+     const newTodo = {
+          id: Numner(Date.now()),
+          text: req.body.text
+     }
+     db.push(newTodo)
+     
+     res.json(newTodo)
+     })
+
+     app.get('/todo', (req, res) => {
+     res.json(db)
+     })
+
+     app.get('/todo/:id', (req, res) => {
+     const todo = db.find(t => t.id === Number(req.params.id));
+     
+     if (todo) {
+          res.json({ data: todo });
+     } else {
+          res.status(404).json({ message: "Todo not found" });
+     }
+     });
+
+     app.listen(8000, () => {
+     console.log('EXPRESS SERVER RUNNING')
+     })
+     ```

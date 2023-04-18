@@ -257,7 +257,7 @@ const db = []
 app.post('/todo', (req, res) => {
 
 const newTodo = {
-     id: Numner(Date.now()),
+     id: Date.now(),
      text: req.body.text
 }
 db.push(newTodo)

@@ -283,3 +283,39 @@ app.listen(8000, () => {
 console.log('EXPRESS SERVER RUNNING')
 })
 ```
+
+### Testing
+Jest is a popular testing framework for Node.js that is built by Facebook. Jest is known for its ease of use, speed, and powerful features such as built-in mocking and assertion libraries.
+
+1. Install Jest as a dev dependency in your project using npm <br />
+     ```
+     npm install --save-dev jest
+     ```
+2. Create a directory called __tests__ in the root of your project. Jest will automatically detect any files in this directory that have a .test.js or .spec.js extension and run them as tests.
+
+3. Write your test code in a file inside the __testing__ directory. Here's an example test file:
+     ```
+
+     function sum(a, b) {
+     return a + b;
+     }
+
+     test('adds 1 + 2 to equal 3', () => {
+     expect(sum(1, 2)).toBe(3);
+     });
+
+     ```
+4. Add a test script to your package.json file that runs Jest:
+     ```
+     {
+          "scripts": {
+          "test": "jest"
+          }
+     }
+
+     ```
+5. Run the test using npm: <br />
+     ```
+     npm test
+     ```
+     > Note: The practice of testing can be found in [this folder](./testing).

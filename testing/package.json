@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "test": "jest utils.spec.js"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}

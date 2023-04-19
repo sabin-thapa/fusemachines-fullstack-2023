@@ -2,7 +2,7 @@
 
 ### Fusemachines internship logs and learnings 
 
-> Apr 17 - Day 1 <br />
+``` Apr 17 - Day 1 ``` <br /> 
 - Arrived at office premises at 9:10 am.
 - Checked in with the receptionist, Ms. Rajani for biometric registration.
 - Meeting with the lead of the People & Culture department for the company orientation
@@ -14,7 +14,7 @@
 - Checked out at 5:00 pm
 <br />
 
-> Apr 18 - Day 2 
+``` Apr 18 - Day 2 ```
 #### HTML Basics 
 Resource: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML
 
@@ -319,8 +319,9 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
      npm test
      ```
      > Note: The practice of testing can be found in [this folder](./testing).
- <br />    
-> **Apr 19 - Day 3**
+ <br /> 
+      
+``` Apr 19 - Day 3 ```
 
 ### Node API Implementation with Express and MongoDB
 I've followed a crash course on [YouTube]('https://www.youtube.com/watch?v=9OfL9H6AmhQ&ab_channel=Devtamin'). 

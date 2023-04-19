@@ -319,3 +319,163 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
      npm test
      ```
      > Note: The practice of testing can be found in [this folder](./testing).
+ <br />    
+> **Apr 19 - Day 3**
+
+### Node API Implementation with Express and MongoDB
+I've followed a crash course on [YouTube]('https://www.youtube.com/watch?v=9OfL9H6AmhQ&ab_channel=Devtamin'). 
+<br />
+The following steps are required:
+1. Set up your project - Create a new Node.js project and install the necessary dependencies such as Express and the MongoDB driver.
+
+2. Set up your database connection - Connect to your MongoDB database using the MongoDB driver. This can be done in a separate module or file.
+
+3. Define your API endpoints - Create your Express router and define your API endpoints. For example, you might have a GET endpoint to retrieve all items in a collection, a POST endpoint to add a new item to the collection, a PUT endpoint to update an existing item, and a DELETE endpoint to remove an item from the collection.
+
+The server implementation is shown below:
+
+```
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}))
+const mongoose = require("mongoose");
+
+const Product = require("./models/productModel");
+
+const PORT = 3000;
+
+app.get("/", (req, res) => {
+  res.send("Response from the server!");
+});
+
+
+// GET Request Implementation
+app.get("/products", async (req, res) => {
+  try {
+    const products = await Product.find({});
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+//Get a specific product
+app.get('/products/:id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+        res.status(200).json(product)
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
+
+// POST Request Implementation
+app.post("/products", async (req, res) => {
+  try {
+    const product = await Product.create(req.body);
+    res.status(200).json(product);
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+});
+
+//Update/Edit PUT Request implementation
+
+app.put('/products/:id', async (req, res) => {
+    try {
+        const product = await Product.findByIdAndUpdate(req.params.id, req.body)
+        
+        //if the product does not exist in the database:
+        if(!product) {
+           return res.status(404).json(`The product with the ID ${res.params.id} does not exist!`)
+        }
+
+        const updatedProduct = await Product.findById(req.params.id)
+
+        res.status(200).json(updatedProduct)
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+})
+
+
+// DELETE API for products
+
+app.delete('/products/:id', async(req, res) => {
+    try {
+        const product = await Product.findByIdAndDelete(req.params.id)
+
+        //If the product does not exist
+        if(!product) {
+            return res.status(404).json(`The product with the ID ${req.params.id} does not exist`)
+        }
+
+        res.status(200).json(product)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(
+    "mongodb+srv://admin:<password>@internship.ddm4lh4.mongodb.net/nodeAPI?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    console.log("Connected to the DB!");
+  })
+  .catch((err) => {
+    console.log("Error: ", err);
+  });
+
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
+});
+
+
+```
+
+The code for the model creation is showm below:
+
+```
+const mongoose = require("mongoose");
+
+const productSchema = mongoose.Schema(
+  {
+    name: {
+        type: String,
+        required: [true, "Please enter the product name!"]
+    },
+    quantity: {
+        type: Number,
+        required: [true, 'Enter the quantity!'],
+        default: 0
+    },
+    image: {
+        type: String, 
+        required: false
+    },
+    price: {
+        type: Number,
+        required: true 
+    }
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Product = mongoose.model('Product', productSchema)
+
+module.exports = Product;
+```

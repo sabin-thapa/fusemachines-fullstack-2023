@@ -2,9 +2,13 @@ const express = require("express")
 const router = express.Router()
 const users = require("../../data/Users");
 const uuid = require('uuid')
+const Users = require('../../models/userModel')
 
 //Get all users
-router.get("", (req, res) => res.json(users));
+router.get("", async (req, res) => {
+  const users = await Users.find({})
+  res.json(users)
+});
 
 //Get a single user
 router.get("/:id", (req, res) => {
@@ -16,7 +20,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Create a user
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const newUser = {
     id: uuid.v4(),
     name: req.body.name,
@@ -27,8 +31,8 @@ router.post('/', (req, res) => {
   if(!newUser.name || !newUser.email) {
     return res.status(400).json({message: "Please enter your name and email!"})
   }
-  users.push(newUser)
-  res.json(users)
+  const user = await Users.create(newUser)
+  res.json(user)
 })
 
 router.put('/:id', (req, res) => {

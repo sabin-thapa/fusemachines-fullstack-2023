@@ -489,3 +489,166 @@ module.exports = Product;
 
 
 ``` Apr 20 - Day 4 ``` <a name="day4"> </a>
+
+A basic CRUD implementation using Node, Express and MongoDB is done. A users collection is created in MongoDB and all the CRUD operations are done in
+that collection.
+
+The server.js file consists of the server code where the server is started and our application is connected to mongoDB via mongoose. Here, we've made use of the express routes to clean of the main server file and all the routes are handled in a different routes file.
+```
+//server.js
+const express = require("express");
+const path = require("path");
+const app = express();
+const logger = require("./middleware/logger");
+const mongoose = require('mongoose')
+
+const PORT = process.env.PORT || 5002;
+
+//SET STATIC FOLDER
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.json())
+
+//Init Middleware
+app.use(logger);
+
+app.use('/api/users', require('./routes/api/users'))
+
+mongoose.connect('mongodb+srv://admin:<password>@internship.ddm4lh4.mongodb.net/nodeAPI?retryWrites=true&w=majority')
+  .then(() => {
+    console.log('DB CONNECTED!')
+  }).catch(err => {
+    console.log('err: ', err.message)
+  })
+
+app.listen(PORT, () => console.log("Server started on Port: ", PORT));
+
+
+```
+
+A folder named routes is created and for all the apis, an api folder is created. Inside that folder, a users.js file is created to handle all the api of the users collection.
+
+```
+const express = require("express");
+const router = express.Router();
+const Users = require("../../models/userModel");
+const mongoose = require("mongoose");
+
+//Get all users
+router.get("", async (req, res) => {
+  const users = await Users.find({});
+  res.json(users);
+});
+
+//Get a single user
+router.get("/:id", async (req, res) => {
+  try {
+    // res.json(users.filter((user) => user.id === parseInt(req.params.id)));
+    const user = await Users.findById(req.params.id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Create a user
+router.post("/", async (req, res) => {
+  const newUser = {
+    name: req.body.name,
+    email: req.body.email,
+    status: "active",
+  };
+
+  if (!newUser.name || !newUser.email) {
+    return res
+      .status(400)
+      .json({ message: "Please enter your name and email!" });
+  }
+  const user = await Users.create(newUser);
+  res.json(user);
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const user = await Users.findByIdAndUpdate(req.params.id, req.body);
+    console.log(req.params.id);
+    if (!user) {
+      console.log(`The user with the ID, ${req.params.id} does not exist`);
+    }
+
+    const updatedData = await Users.findById(req.params.id);
+    res.status(200).json(updatedData);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+//Delete a single user
+router.delete("/:id", async(req, res) => {
+  try {
+    const user = await Users.findByIdAndDelete(req.params.id)
+    if (!user) {
+      console.log(`The user with the ID, ${req.params.id} does not exist`);
+    }
+    res.status(200).json(user)
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+module.exports = router;
+
+```
+
+> Note: MongoDB provides a id with the key _id by default while creating an object (POST request). So, there's no need to explicitly add an ID while creating a POST request.
+
+The model for the UserSchema can be found inside the models folder.
+
+```
+///models/userModel.js
+const mongoose = require("mongoose");
+
+const usersSchema = mongoose.Schema(
+  {
+    id: {
+      type: String,
+      required: false,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    status: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Users = mongoose.model("Users", usersSchema);
+module.exports = Users;
+
+```
+
+We've used mongoose to create the usersSchema with the fields, id, name, email and status. Each field has a type and some additional properties.
+
+For example, the name field is defined as a required string, while the status field is not required.
+
+After creating a schema, model is created using:
+
+```
+const Users = mongoose.model('Users', usersSchema);
+```
+Note: <br />
+_Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It provides a schema-based solution to model your application data with MongoDB and adds additional features and capabilities to make it easier to work with MongoDB from Node.js._
+
+_Mongoose allows you to define models for your MongoDB collections, which define the shape of the documents within that collection. It also provides features such as validation, middleware, querying, and hooks._
+
+_With Mongoose, you can connect to a MongoDB database and perform CRUD (Create, Read, Update, Delete) operations on your data. Mongoose also supports advanced features such as transactions, population (for referencing other collections), and aggregation._

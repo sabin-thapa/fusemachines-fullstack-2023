@@ -1,6 +1,12 @@
 # fusemachines-fullstack-2023
 
 ### Fusemachines internship logs and learnings 
+There are branches for each day. Since the first day was our orientation, there's no branch for it. And the branch for the second day is the main branch itself. The consecutive branches for all the other days are present.
+
+- [Day2 Docs](#day2)
+- [Day3 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day3)  | [Day3 Docs](#day3)
+- [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day4) | [Day4 Docs](#day4)
+
 
 ``` Apr 17 - Day 1 ``` <br /> 
 - Arrived at office premises at 9:10 am.
@@ -14,7 +20,7 @@
 - Checked out at 5:00 pm
 <br />
 
-``` Apr 18 - Day 2 ```
+``` Apr 18 - Day 2 ``` <a name="day2"> </a>
 #### HTML Basics 
 Resource: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML
 
@@ -321,7 +327,7 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
      > Note: The practice of testing can be found in [this folder](./testing).
  <br /> 
       
-``` Apr 19 - Day 3 ```
+``` Apr 19 - Day 3 ``` <a name="day3"> </a>
 
 ### Node API Implementation with Express and MongoDB - [Project Folder]('./node-api')
 I've followed a crash course on [YouTube]('https://www.youtube.com/watch?v=9OfL9H6AmhQ&ab_channel=Devtamin'). 
@@ -480,3 +486,6 @@ const Product = mongoose.model('Product', productSchema)
 
 module.exports = Product;
 ```
+
+
+``` Apr 20 - Day 4 ``` <a name="day4"> </a>

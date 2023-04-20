@@ -326,6 +326,8 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
      ```
      > Note: The practice of testing can be found in [this folder](./testing).
  <br /> 
+
+<hr />
       
 ``` Apr 19 - Day 3 ``` <a name="day3"> </a>
 
@@ -487,6 +489,7 @@ const Product = mongoose.model('Product', productSchema)
 module.exports = Product;
 ```
 
+<hr />
 
 ``` Apr 20 - Day 4 ``` <a name="day4"> </a>
 
@@ -652,3 +655,6 @@ _Mongoose is an Object Data Modeling (ODM) library for MongoDB and Node.js. It p
 _Mongoose allows you to define models for your MongoDB collections, which define the shape of the documents within that collection. It also provides features such as validation, middleware, querying, and hooks._
 
 _With Mongoose, you can connect to a MongoDB database and perform CRUD (Create, Read, Update, Delete) operations on your data. Mongoose also supports advanced features such as transactions, population (for referencing other collections), and aggregation._
+
+Here's the users collection in the MongoDB database.
+![image](https://user-images.githubusercontent.com/51270026/233261848-0e86240e-be97-4dbd-953b-10b238339ab7.png)

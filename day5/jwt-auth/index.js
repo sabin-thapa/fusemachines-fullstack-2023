@@ -13,10 +13,11 @@ app.use(express.json())
 
 //Import Routes
 const authRoute = require('./routes/auth')
+const postRoute = require('./routes/posts')
 
 //Route Middleware
 app.use('/api/user', authRoute)
-
+app.use('/api/posts', postRoute)
 
 const PORT = 3000
 

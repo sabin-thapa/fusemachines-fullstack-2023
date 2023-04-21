@@ -6,6 +6,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day2 Docs](#day2)
 - [Day3 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day3)  | [Day3 Docs](#day3)
 - [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day4) | [Day4 Docs](#day4)
+- [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -658,3 +659,58 @@ _With Mongoose, you can connect to a MongoDB database and perform CRUD (Create, 
 
 Here's the users collection in the MongoDB database.
 ![image](https://user-images.githubusercontent.com/51270026/233261848-0e86240e-be97-4dbd-953b-10b238339ab7.png)
+
+<hr />
+
+``` Apr 21 - Day 5 ``` <a name="day5"> </a>
+
+# NodeJS Authentication
+
+Authentication is the process of verifying the identity of a user or system. In Node.js, there are several ways to implement authentication for web applications. Here are some common authentication methods:
+
+- Session-based Authentication: This method uses a session to store user data on the server-side. When a user logs in, a session is created and a unique session ID is generated. This ID is stored in a cookie on the client-side. Each time a user makes a request to the server, the session ID is sent along with the request, allowing the server to identify the user and provide access to protected resources.
+
+- Token-based Authentication: This method uses tokens to authenticate users. When a user logs in, a token is generated and sent to the client. The client then stores the token and sends it along with each subsequent request to the server. The server can then verify the token and allow access to protected resources.
+
+- OAuth 2.0: OAuth 2.0 is an open standard for authentication and authorization that allows users to grant third-party applications access to their resources on a server. OAuth 2.0 provides a standardized way to authenticate users using third-party applications without giving them access to sensitive data.
+
+- Passport.js: Passport.js is a popular Node.js middleware that provides a simple and modular way to implement authentication. It supports various authentication methods such as local, social, and multi-factor authentication.
+
+These are just a few of the many ways to implement authentication in Node.js. The choice of authentication method depends on the specific requirements of your application.
+
+I've implemented the Token-based authentication using the JWT(JSON Web Tokens). Some of the other tools and libraries used are discussed below.
+
+1. JOI for Data Validation <br />
+Joi is a powerful data validation library for Node.js that can be used to validate and sanitize user input to prevent security vulnerabilities and    data corruption. Here's how to use Joi for data validation in Node.js:
+- Install joi using: <br />
+      ``` npm install @hapi/joi ```
+      
+- Import Joi: <br />
+  After installing Joi, you can import it in your Node.js file using the following line of code: <br />
+      
+      ``` const Joi = require('@hapi/joi') ```
+      
+- Define a Schema: <br />
+  A schema is a set of rules that define the structure and constraints of the data you want to validate. You can define a schema using the following syntax: <br />
+      
+      ```
+      const schema = Joi.object({
+      // define schema properties here
+      });
+      ```
+
+_You can use various Joi methods to define different types of properties, such as .string(), .number(), .date(), etc._
+
+- Validate the data: <br />
+  Once you have defined a schema, you can use it to validate user input. You can use the .validate() method to validate the data and check if it meets the schema requirements. For example: <br />
+  
+  ```
+      const result = schema.validate({ /* user input object */ });
+
+      if (result.error) {
+        // data is invalid
+      } else {
+        // data is valid
+      }
+
+  ```

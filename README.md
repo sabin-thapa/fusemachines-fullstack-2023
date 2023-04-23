@@ -664,7 +664,8 @@ Here's the users collection in the MongoDB database.
 
 ``` Apr 21 - Day 5 ``` <a name="day5"> </a>
 
-# NodeJS Authentication
+# NodeJS Authentication 
+[Project Folder](./day5/jwt-auth/)
 
 Authentication is the process of verifying the identity of a user or system. In Node.js, there are several ways to implement authentication for web applications. Here are some common authentication methods:
 
@@ -680,26 +681,26 @@ These are just a few of the many ways to implement authentication in Node.js. Th
 
 I've implemented the Token-based authentication using the JWT(JSON Web Tokens). Some of the other tools and libraries used are discussed below.
 
-1. JOI for Data Validation <br />
+1. **JOI for Data Validation** <br />
 Joi is a powerful data validation library for Node.js that can be used to validate and sanitize user input to prevent security vulnerabilities and    data corruption. Here's how to use Joi for data validation in Node.js:
 - Install joi using: <br />
-      ``` npm install @hapi/joi ```
+  ``` npm install @hapi/joi ```
       
 - Import Joi: <br />
   After installing Joi, you can import it in your Node.js file using the following line of code: <br />
       
-      ``` const Joi = require('@hapi/joi') ```
+  ``` const Joi = require('@hapi/joi') ```
       
 - Define a Schema: <br />
   A schema is a set of rules that define the structure and constraints of the data you want to validate. You can define a schema using the following syntax: <br />
       
-      ```
-      const schema = Joi.object({
-      // define schema properties here
-      });
-      ```
+  ```
+  const schema = Joi.object({
+  // define schema properties here
+  });
+  ```
 
-_You can use various Joi methods to define different types of properties, such as .string(), .number(), .date(), etc._
+  _You can use various Joi methods to define different types of properties, such as .string(), .number(), .date(), etc._
 
 - Validate the data: <br />
   Once you have defined a schema, you can use it to validate user input. You can use the .validate() method to validate the data and check if it meets the schema requirements. For example: <br />
@@ -714,3 +715,112 @@ _You can use various Joi methods to define different types of properties, such a
       }
 
   ```
+  The code for validation is shown below:
+  ```
+  //day5/jwt-auth/validation.js
+  const joi = require('@hapi/joi')
+
+  //Register validation
+  const registerValidation = (data) => {
+      const validationSchema = joi.object({
+          name: joi.string().min(6).required(),
+          email: joi.string().email().min(6).required(),
+          password: joi.string().min(6).required()
+      })
+      return validationSchema.validate(data)
+  }
+
+  //Login Validation
+  const loginValidation = (data) => {
+      const validationSchema = joi.object({
+          email: joi.string().email().min(6).required(),
+          password: joi.string().min(6).required()
+      })
+      return validationSchema.validate(data)
+  }
+
+  module.exports.registerValidation = registerValidation
+  module.exports.loginValidation = loginValidation
+
+  ```
+
+2. **JWT for token based authentication** <br />
+JSON Web Tokens (JWT) are a popular way of handling token-based authentication in Node.js applications. JWT is a compact, self-contained mechanism for transmitting data between parties as a JSON object. JWTs can be used to verify the authenticity of a user and ensure that they have access to the requested resources.
+<br />
+The JWT authentication process works like this:
+
+- When a user logs in, their credentials are verified by the server.
+- If the credentials are valid, a JSON web token is generated and sent back to the client.
+- The client then includes the JWT in subsequent requests to the server.
+- The server verifies the JWT and allows access to the requested resource if the token is valid.
+
+  To implement JWT authentication in a Node.js application, you can use a library like ```jsonwebtoken```. Here's a simple example: <br />
+
+  ```
+  const jwt = require('jsonwebtoken');
+
+  // Generate a JWT
+  const payload = { id: 123 };
+  const secret = 'mysecretkey';
+  const token = jwt.sign(payload, secret);
+
+  // Verify a JWT
+  const decoded = jwt.verify(token, secret);
+  console.log(decoded); // { id: 123 }
+
+  ```
+  In this example, we generate a JWT using the ```jwt.sign()``` method, passing in a payload and a secret key. The payload is typically an object containing information about the user, such as their user ID. The secret key is used to sign the token, ensuring that it hasn't been tampered with.
+
+  To verify a JWT, we use the ```jwt.verify()``` method, passing in the token and the secret key. If the token is valid, the method returns an object containing the decoded payload.
+
+  The implementation of the jwt verication is as follows:
+  ```
+  const jwt = require('jsonwebtoken')
+
+  const authVerifier = (req, res, next) => {
+      const token = req.header('auth-token')
+      if(!token) res.status(401).send('Access Denied')
+
+      try {
+          const verified = jwt.verify(token, process.env.TOKEN_SECRET)
+          req.user = verified
+      } catch (error) {
+          res.status(400).send('Invalid token')
+      }
+
+      next()
+  }
+
+  module.exports = authVerifier
+  ```
+
+3. **Bycrypt library for hashing the password** <br />
+```bcrypt``` is a popular library for password hashing in Node.js. It provides a way to securely hash passwords so that they can be safely stored in a database.
+
+    Here's an example of how to use bcrypt to hash a password:
+    ```
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password, salt)
+    ```
+
+    Here, the parameter to the ```genSalt()``` function determines how many times the password will be hashed which affects the time it takes to generate the hash. A higher number of rounds results in a more secure hash, but also takes longer to generate. <br />
+    Here's an example of how to use bcrypt to check a password against a hash:
+
+    ```
+      const bcrypt = require('bcrypt');
+
+      const plaintextPassword = 'mypassword';
+      const storedHash = '$2b$10$JmE.R/bL1fD.gyLwFKKjC.gPmSyxWjr2Q9XjKqxFnH1LhvkFyKj6y';
+
+      bcrypt.compare(plaintextPassword, storedHash, (err, result) => {
+        if (err) {
+          // Handle error
+        } else if (result) {
+          // Passwords match
+        } else {
+          // Passwords don't match
+        }
+      });
+    ```
+
+_The ```compare``` function takes the plaintext password and the stored hash as arguments and returns a boolean indicating whether they match._

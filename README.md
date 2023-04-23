@@ -83,7 +83,7 @@ Node.js is a runtime for built on top of Chrome's V8. It allows you to develop a
      ```
 
 - `module`: The `module` object is the reference to the current module, and it contains information about the module, such as its filename, exports object, and other metadata. We can use the `module.exports` property to define what your module exports.
-     ```
+     ```js
      module.exports = {
           myFunction: function() {
                console.log('Hello World!)
@@ -95,7 +95,7 @@ Node.js is a runtime for built on top of Chrome's V8. It allows you to develop a
      This exports an object that contains a function and a number, which can be used by other modules that require this module.
 
 - `require`: The `require` function is used to load modules in Node.js. It takes a module name or file path as an argument, and it returns the exports object of the loaded module.
-     ```
+     ```js
      const myModule = require('./myModule')
      ```
      This loads the myModule.js file and returns its exports object, which can then be used to access the functions and values exported by the module.
@@ -108,7 +108,7 @@ A module is a reusable chunk of code that has its own context. That way modules 
 
 In the example above, we saw the commonJS syntax of exporting modules. Now, let's see the ES6 syntax: <br />
      
-```
+```js
      //test.js
      export const action = () => {
           // code here
@@ -134,7 +134,7 @@ The implementation of files can be found in the [folder](/fs/).
 - **Try-catch blocks**:
      When writing synchronous code, wrap the code that can potentially throw an error in a try-catch block. This will allow you to catch and handle errors as they occur.
 
-     ```
+     ```js
      try {
           const result = someSyncFunction(); // function that may throw an error
           console.log(result);
@@ -146,7 +146,7 @@ The implementation of files can be found in the [folder](/fs/).
 - **Callbacks**:
      When writing asynchronous code, use callbacks to handle errors. The convention for Node.js callbacks is to pass an error object as the first parameter to the callback function. Check for the error object in the callback and handle it appropriately.
 
-     ```
+     ```js
      someAsyncFunction((error, result) => {
           if (error) {
                console.error('An error occurred:', error);
@@ -159,7 +159,7 @@ The implementation of files can be found in the [folder](/fs/).
 - **Promises**:
       Promises are a newer way to handle asynchronous code and provide a cleaner syntax than callbacks. Use the .catch() method on a promise to catch and handle errors.
 
-     ```
+     ```js
      someAsyncPromise()
           .then(result => {
                console.log(result)
@@ -192,7 +192,7 @@ We can create a package(package.json) using the `npm init` command. Some popular
 - `npm test`: runs the `test` script in your package.json
 - `npm uninstall`: will uninstall a given package.
 
-     ```
+     ```js
      npm install package1 package2 package3 --save
      ```
      _You can install as many packages with one command as you like. The --save flag is to let NPM know to update the package.json's dependency field with all of these packages. We need this because we don't want to check in the downloaded packages into source code for many reason. So how does anyone else on your team, or even you on another machine know what packages this app needs? Well NPM will save the package names and versions so NPM on another machine can look at that and install from there. Your package.json should have updated._
@@ -205,11 +205,11 @@ A reddit CLI is built inside the  [folder]('./reddit-cli')
 - **http server**: <br/>
      We can create a http server as follows:
      1. Import the http module: <br />
-          ```
+          ```js
           import http from 'http';
           ```
      2. Use the createServer method of https as: <br/>
-          ```
+          ```js
                const server = http.createServer((req, res) => {
                if (req.method === 'POST') {
                     let body = ''
@@ -238,14 +238,14 @@ However, this is the hard way of creating a server. There is an awesome packaged
 
 Folder containing the [code]('./server/server.mjs')  
 
-```
+```js
 npm i express body-parser morgan
 ```
 **express**: a framework to build servers <br />
 **body-parser**: a middleware that parses incoming requests <br />
 **morgan**: a middleware for logging incoming requests
 
-```
+```js
 import express from 'express'
 import bp from 'body-parser'
 import morgan from 'morgan'
@@ -295,13 +295,13 @@ console.log('EXPRESS SERVER RUNNING')
 Jest is a popular testing framework for Node.js that is built by Facebook. Jest is known for its ease of use, speed, and powerful features such as built-in mocking and assertion libraries.
 
 1. Install Jest as a dev dependency in your project using npm <br />
-     ```
+     ```js
      npm install --save-dev jest
      ```
 2. Create a directory called __tests__ in the root of your project. Jest will automatically detect any files in this directory that have a .test.js or .spec.js extension and run them as tests.
 
 3. Write your test code in a file inside the __testing__ directory. Here's an example test file:
-     ```
+     ```js
 
      function sum(a, b) {
      return a + b;
@@ -313,7 +313,7 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
 
      ```
 4. Add a test script to your package.json file that runs Jest:
-     ```
+     ```js
      {
           "scripts": {
           "test": "jest"
@@ -322,7 +322,7 @@ Jest is a popular testing framework for Node.js that is built by Facebook. Jest 
 
      ```
 5. Run the test using npm: <br />
-     ```
+     ```js
      npm test
      ```
      > Note: The practice of testing can be found in [this folder](./testing).
@@ -344,7 +344,7 @@ The following steps are required:
 
 The server implementation is shown below:
 
-```
+```js
 const express = require("express");
 const app = express();
 
@@ -457,7 +457,7 @@ app.listen(PORT, () => {
 
 The code for the model creation is showm below:
 
-```
+```js
 const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema(
@@ -498,7 +498,7 @@ A basic CRUD implementation using Node, Express and MongoDB is done. A users col
 that collection.
 
 The server.js file consists of the server code where the server is started and our application is connected to mongoDB via mongoose. Here, we've made use of the express routes to clean of the main server file and all the routes are handled in a different routes file.
-```
+```js
 //server.js
 const express = require("express");
 const path = require("path");
@@ -532,7 +532,7 @@ app.listen(PORT, () => console.log("Server started on Port: ", PORT));
 
 A folder named routes is created and for all the apis, an api folder is created. Inside that folder, a users.js file is created to handle all the api of the users collection.
 
-```
+```js
 const express = require("express");
 const router = express.Router();
 const Users = require("../../models/userModel");
@@ -608,7 +608,7 @@ module.exports = router;
 
 The model for the UserSchema can be found inside the models folder.
 
-```
+```js
 ///models/userModel.js
 const mongoose = require("mongoose");
 
@@ -647,7 +647,7 @@ For example, the name field is defined as a required string, while the status fi
 
 After creating a schema, model is created using:
 
-```
+```js
 const Users = mongoose.model('Users', usersSchema);
 ```
 Note: <br />
@@ -694,7 +694,7 @@ Joi is a powerful data validation library for Node.js that can be used to valida
 - Define a Schema: <br />
   A schema is a set of rules that define the structure and constraints of the data you want to validate. You can define a schema using the following syntax: <br />
       
-  ```
+  ```js
   const schema = Joi.object({
   // define schema properties here
   });
@@ -704,7 +704,7 @@ Joi is a powerful data validation library for Node.js that can be used to valida
 
 - Validate the data: <br />
   Once you have defined a schema, you can use it to validate user input. You can use the .validate() method to validate the data and check if it meets the schema requirements. For example: <br />
-  
+  js
   ```
       const result = schema.validate({ /* user input object */ });
 
@@ -716,7 +716,7 @@ Joi is a powerful data validation library for Node.js that can be used to valida
 
   ```
   The code for validation is shown below:
-  ```
+  ```js
   //day5/jwt-auth/validation.js
   const joi = require('@hapi/joi')
 
@@ -756,7 +756,7 @@ The JWT authentication process works like this:
 
   To implement JWT authentication in a Node.js application, you can use a library like ```jsonwebtoken```. Here's a simple example: <br />
 
-  ```
+  ```js
   const jwt = require('jsonwebtoken');
 
   // Generate a JWT
@@ -774,7 +774,7 @@ The JWT authentication process works like this:
   To verify a JWT, we use the ```jwt.verify()``` method, passing in the token and the secret key. If the token is valid, the method returns an object containing the decoded payload.
 
   The implementation of the jwt verication is as follows:
-  ```
+  ```js
   const jwt = require('jsonwebtoken')
 
   const authVerifier = (req, res, next) => {
@@ -798,7 +798,7 @@ The JWT authentication process works like this:
 ```bcrypt``` is a popular library for password hashing in Node.js. It provides a way to securely hash passwords so that they can be safely stored in a database.
 
     Here's an example of how to use bcrypt to hash a password:
-    ```
+    ```js
     const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(password, salt)
     ```
@@ -806,7 +806,7 @@ The JWT authentication process works like this:
     Here, the parameter to the ```genSalt()``` function determines how many times the password will be hashed which affects the time it takes to generate the hash. A higher number of rounds results in a more secure hash, but also takes longer to generate. <br />
     Here's an example of how to use bcrypt to check a password against a hash:
 
-    ```
+    ```js
       const bcrypt = require('bcrypt');
 
       const plaintextPassword = 'mypassword';

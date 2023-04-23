@@ -6,7 +6,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day2 Docs](#day2)
 - [Day3 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day3)  | [Day3 Docs](#day3)
 - [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day4) | [Day4 Docs](#day4)
-- [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
+- [Day5 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 

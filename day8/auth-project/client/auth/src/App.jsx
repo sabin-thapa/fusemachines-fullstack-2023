@@ -1,17 +1,21 @@
 import React from 'react'
 import {createBrowserRouter, Router, RouterProvider} from 'react-router-dom'
 
-// Root Routes
+// Import components
+import Register from './components/Register'
 
+// Root Routes
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <div> Root Router</div>
+    path: "",
+    element: <>HELLO</>
   },
   {
     path: '/register',
-    element: <div>Register ROuter</div>
-  }
+    element: <Register />
+  },
+
+ 
 ])
 
 

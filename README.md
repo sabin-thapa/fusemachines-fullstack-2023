@@ -7,6 +7,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day3 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day3)  | [Day3 Docs](#day3)
 - [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day4) | [Day4 Docs](#day4)
 - [Day5 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
+- [Day8 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day8) | [Day8 Docs](#day8)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -824,3 +825,32 @@ The JWT authentication process works like this:
     ```
 
 _The ```compare``` function takes the plaintext password and the stored hash as arguments and returns a boolean indicating whether they match._
+
+<hr />
+
+``` Apr 24 - Day 8 ``` <a name="day8"> </a>
+
+# MERN STACK BASIC AUTHENTICATION (Login and Register)
+[Project Folder](./day8/auth-project)
+
+A basic authentication application is developed using the MERN stack. Contuniing learning authentication from my last day, I've explored about the following new topics. <br />
+
+- **CORS** <br />
+CORS stands for Cross-Origin Resource Sharing. It is a security feature built into web browsers that restricts web pages from making requests to a different domain than the one that served the web page.
+
+For example, if a JavaScript code running on a web page served by example.com tries to make a request to api.example.net, the browser will prevent the request from being sent by default. This is to prevent malicious scripts from accessing sensitive data on other domains.
+
+To enable CORS, the server needs to send specific headers in its responses. These headers include Access-Control-Allow-Origin, Access-Control-Allow-Headers, and Access-Control-Allow-Methods. The Access-Control-Allow-Origin header is the most important one, and it specifies the domain that is allowed to access the server's resources.
+In Node.js, the cors middleware can be used to handle CORS headers. This middleware can be easily installed using npm and can be used as follows:
+
+```js
+const express = require('express')
+const cors = require('cors')
+const app = express()
+
+app.use(cors())
+
+// Your routes go here
+
+```
+This will enable CORS for all routes in your application. You can also customize CORS for specific routes or domains by passing options to the cors middleware.

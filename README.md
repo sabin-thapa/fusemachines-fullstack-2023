@@ -854,3 +854,146 @@ app.use(cors())
 
 ```
 This will enable CORS for all routes in your application. You can also customize CORS for specific routes or domains by passing options to the cors middleware.
+
+1. **The Register Page** <br />
+      It contains a simple form that takes in the user's name, email and password and upon successful task, a user is created in the MongoDB database. <br />
+
+      ![image](https://user-images.githubusercontent.com/51270026/234172277-b1b9b668-f2f7-4f42-9bfc-aea17328de85.png)
+
+      After filling the fields, a user is created: <br />
+      ![image](https://user-images.githubusercontent.com/51270026/234172376-7f1d279b-50ef-4673-8ed3-4c1a54219f9f.png)
+
+      The following image shows the record of the user in the database: <br />
+      ![image](https://user-images.githubusercontent.com/51270026/234172484-591fba79-3e89-45a4-bdad-e8452ce2248a.png)
+
+      Hashing of the password can be done by using libraries such as ```bycrypt``` like in the previous project.
+
+2. **The Login Page** <br />
+      It contains a simple form to take in the user's email and password as input. <br />
+      ![image](https://user-images.githubusercontent.com/51270026/234172677-f280cc6a-7bb7-47ff-803f-ca3c31f271df.png)
+
+      If the user exists, the user is successfully logged in, otherwise not. The following image shows a successful login. <br />
+      ![image](https://user-images.githubusercontent.com/51270026/234172754-64f916a6-2bfa-4c4f-ade4-101ddcf5580f.png)
+
+      The following is an example of incorrect login: <br />
+      ![image](https://user-images.githubusercontent.com/51270026/234172841-304de65f-9b4c-4b59-bea2-7a23e113b77e.png)
+
+
+The frontend implementation of the Regsiter page is done in react as follows: <br />
+
+```js
+import React, { useState } from "react";
+
+const Register = () => {
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const registerUser = async (e) => {
+    e.preventDefault();
+    const response = await fetch("http://localhost:1337/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        email,
+        password,
+      }),
+    });
+
+    const data = await response.json();
+    if (data) {
+      alert("Registration success: ");
+    }
+    console.log(data, "data");
+  };
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: 'column',
+        justifyContent: "center",
+        alignItems: "center",
+        height: "60vh",
+      }}
+    >
+      <h1 style={{marginTop: "20%"}}>Register User</h1>
+      <form onSubmit={registerUser} style={{ margin: "auto" }}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
+          placeholder="Username"
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
+        <input type="submit" value="Register" />
+      </form>
+    </div>
+  );
+};
+
+export default Register;
+
+
+```
+
+Routing is handled using the library ```react-router-dom``` as follows: <br />
+
+```js
+import React from 'react'
+import {createBrowserRouter, Router, RouterProvider} from 'react-router-dom'
+
+// Import components
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+
+// Root Routes
+const router = createBrowserRouter([
+  {
+    path: "",
+    element: <>HELLO</>
+  },
+  {
+    path: '/register',
+    element: <Register />
+  },
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />
+  },
+
+ 
+])
+
+
+const App = () => {
+  return (
+    <main>
+      <RouterProvider router={router}>
+
+      </RouterProvider>
+    </main>
+  )
+}
+
+export default App
+```

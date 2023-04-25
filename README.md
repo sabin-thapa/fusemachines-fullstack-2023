@@ -8,6 +8,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day4 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day4) | [Day4 Docs](#day4)
 - [Day5 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
 - [Day8 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day8) | [Day8 Docs](#day8)
+- [Day9 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day9) | [Day9 Docs](#day9)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -997,3 +998,230 @@ const App = () => {
 
 export default App
 ```
+<hr />
+
+``` Apr 25 - Day 9 ``` <a name="day9"> </a>
+
+# User role based permissions <br />
+[Project Folder](./day9/)
+
+It is very important to provide permissions to the users based on their roles. For example, a teacher in an e-learning application has different permissions than a student in the same application. Despite the fact that both of them are __authenticated__, they might not be __authorized__ to do certain tasks. Therefore, the concepts of user role based permissions come in.
+
+User roles and permissions are needed to control access to specific functionality or data within an application. They are a fundamental aspect of application security and can help prevent unauthorized access or misuse of resources.
+
+Consider an application with the following endpoints: <br />
+
+```js
+app.get('/', (req, res) => {
+    res.send('Home Page')
+})
+
+app.get('/dashboard', (req, res) => {
+    res.send('Dashboard!')
+})
+
+app.get('/admin', (req, res) => {
+    res.send('Admin Page')
+})
+```
+- Every user can access the Home Page route.
+- Only authenticated user should be able to access the Dashboard.
+- Only user with the role ```admin``` should be able to access the admin route.
+
+For this, let's create a mockup database of users and the roles: <br />
+
+```js
+//data.js
+const ROLE = {
+    ADMIN: 'admin',
+    GENERAL: 'general'
+}
+
+// Dummy Database for users and projects
+
+const users = [
+    {id:1, name: "Sabin", role: ROLE.ADMIN},
+    {id:2, name: "Sajan", role: ROLE.GENERAL},
+    {id:3, name: "Umesh", role: ROLE.GENERAL},
+    {id:4, name: "Gaurab", role: ROLE.GENERAL},
+]
+
+const projects = [
+    {id: 1, name: "Sabin's project", userId: 1},
+    {id: 2, name: "Sajan's project", userId: 2},
+    {id: 3, name: "Umesh's project", userId: 3},
+    {id: 4, name: "Gaurab's project", userId: 4},
+]
+
+```
+Here, there are two types of roles: ADMIN and GENERAL. User have access to their own projects and admin can access the projects of everyone.
+
+Let's create a middleware that checks if the user exists in the database: <br />
+
+```js
+const {users} = require('../data')
+
+module.exports =  setUser = (req, res, next) => {
+    const userId = req.body.userId
+    if(userId) {
+        req.user = users.find(user => user.id === userId)
+    }
+    next()
+}
+```
+This middleware can be used in the app by doing: <br />
+```js
+const setUser = require('./middlewares/setUser')
+app.use(setUser)
+```
+- **Middleware for basic authentication**
+
+  ```js
+  const authUser = (req, res, next) => {
+    if (!req.user) {
+      res.status(403);
+      return res.send("You are not logged in!");
+    }
+    next();
+  };
+  ```
+  Now, for every get request, if the body contains a user ID that's in the database, then the user is considered to be authenticated. It's the most basic form of authentication.
+
+  The routes can be now modified as follows:
+
+  ```js
+
+  app.get('/dashboard', authUser, (req, res) => {
+      res.send('Dashboard!')
+  })
+
+  app.get('/admin', authUser, (req, res) => {
+      res.send('Admin Page')
+  })
+  ```
+
+  _Now, only authenticated users can access these routes. However, anyone can access the admin route too._
+
+- **Middleware for admin route**
+
+  ```js
+  const authRole = (role) => {
+    return (req, res, next) => {
+      if (req.user.role !== role) {
+        res.status(401);
+        return res.send("Not Allowed");
+      }
+      next();
+    };
+  };
+  ```
+
+  We can use this middleware as follows:
+  ```js
+    app.get('/admin', authUser, authRole(ROLE.ADMIN), (req, res) => {
+      res.send('Admin Page')
+  })
+  ```
+  So, if the user role is admin then the callback function is executed. Otherwise, an error with the status code 401 is thrown.
+
+- **Project Routes for General Users and Admins** <br/>
+Each user has the access to their own project and the admin has the access to the projects of every user. However, let's implement a logic that will only allow the user to delete their project. <br />
+
+The basic projects routes shall look like this:
+
+```js
+router.get('/', (req, res) => {
+    res.send('projects')
+})
+
+router.get('/:projectId', (req, res) => {
+    res.json(req.project)
+})
+
+router.delete('/:projectId', (req, res) => {
+    res.send('Deleted project!')
+})
+```
+Implementing permissions for these routes. Firstly, we can add the middleware authUser to verify that the user is authenticated:
+```js
+router.get('/', authUser, (req, res) => {
+    res.send('projecst'))
+```
+We can create a middleware that will display all the projects if the user's role is admin, otherwise the respective project of the user as:
+```js
+const scopedProjects = (user, projects) => {
+    if(user.role === ROLE.ADMIN) return projects
+    return projects.filter(project => project.userId === user.id)
+}
+```
+The route then becomes:
+```js
+router.get('/', authUser, (req, res) => {
+    res.json(scopedProjects(req.user, projects))
+})
+```
+- **Middleware to set project if exists**
+  ```js
+  const {projects} = require('../data')
+
+  module.exports = setProject = (req, res, next) => {
+      const projectId = parseInt(req.params.projectId)
+      req.project = projects.find(prj => prj.id === projectId)
+
+      if(req.project === null) {
+          res.status(404)
+          return res.send('Project does not exist!')
+      } 
+      next()
+  }
+  ```
+  This middleware will check and see if the requested project exists in the database. If not, a 404 error is thrown.
+
+- **Permission to view the project <br />**
+  The permission to view the project can be implemented as follows:
+  ```js
+    const canViewProject = (user, project) => {
+      return(
+          (user && user.role === ROLE.ADMIN) || (project && project.userId) === user.id
+      )
+  }
+  ```
+
+- **Middleware to perform GET request on a specific project**
+  
+  ```js
+      const authGetProject = (req, res, next) => {
+      console.log(req.user, "USER", req.project, "Project");
+      if (!canViewProject(req.user, req.project)) {
+        res.status(401);
+        return res.send("Not Allowed");
+      }
+      next();
+    };
+  ```
+- **Middleware to perform DELETE request on a specific project**
+  ```js
+  const authDeleteProject = (req, res, next) => {
+  if (!canDeleteProject(req.user, req.project)) {
+    res.status(401);
+    return res.send("Not Allowed");
+  }
+  next();
+  };
+  ```
+  This middlewares will check and see if the user has access to view and delete the project respectively.
+  Now, the final routes will look like this: <br />
+
+  ```js
+    router.get('/', authUser, (req, res) => {
+      res.json(scopedProjects(req.user, projects))
+  })
+
+  router.get('/:projectId', setProject, authGetProject, (req, res) => {
+      res.json(req.project)
+  })
+
+  router.delete('/:projectId', setProject, authDeleteProject, (req, res) => {
+      res.send('Deleted project!')
+  })
+  ```

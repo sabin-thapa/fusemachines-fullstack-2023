@@ -7,6 +7,7 @@ dotenv.config()
 const {users} = require('./data')
 const projectRouter = require('./routes/projects')
 const setUser = require('./middlewares/setUser')
+const authUser = require('./middlewares/authUser')
 
 //middlewares
 app.use(express.json())
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
     res.send('Home Page')
 })
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', authUser, (req, res) => {
     res.send('Dashboard!')
 })
 

@@ -4,10 +4,10 @@ const app = express()
 const dotenv = require('dotenv')
 dotenv.config()
 
-const {users} = require('./data')
+const {ROLE} = require('./data')
 const projectRouter = require('./routes/projects')
 const setUser = require('./middlewares/setUser')
-const authUser = require('./middlewares/authUser')
+const {authUser, authRole} = require('./middlewares/authUser')
 
 //middlewares
 app.use(express.json())
@@ -24,7 +24,7 @@ app.get('/dashboard', authUser, (req, res) => {
     res.send('Dashboard!')
 })
 
-app.get('/admin', (req, res) => {
+app.get('/admin', authUser, authRole(ROLE.ADMIN), (req, res) => {
     res.send('Admin Page')
 })
 

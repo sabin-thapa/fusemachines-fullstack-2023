@@ -1225,3 +1225,27 @@ router.get('/', authUser, (req, res) => {
       res.send('Deleted project!')
   })
   ```
+  
+  ## Sample Requests
+  - GET (Homepage)
+  ![image](https://user-images.githubusercontent.com/51270026/234224849-8ed9abf8-5c73-43d6-b596-47cf5e911116.png)
+      
+  - GET (Dashboard without user)
+  ![image](https://user-images.githubusercontent.com/51270026/234225088-e0f706e6-544e-4761-b048-5876be290fbb.png)
+  
+  - GET (Dashboard with user)
+  ![image](https://user-images.githubusercontent.com/51270026/234225254-86974a9f-05a4-4f97-9597-76ac53118878.png)
+  
+  - GET (Admin page with general user)
+  ![image](https://user-images.githubusercontent.com/51270026/234225347-69cdebaf-dbaa-4532-82aa-edeaa04d424e.png)
+
+  - GET (Admin page with Admin credentials)
+  ![image](https://user-images.githubusercontent.com/51270026/234225434-6fee13c5-90fc-4fe7-9e98-2ba86764e121.png)
+      
+  - GET (Projects- Admin)
+  ![image](https://user-images.githubusercontent.com/51270026/234225597-a624a6d0-870a-41d6-9c7e-d2b97c9b326c.png)
+      
+  - DELETE (Own Project)
+  ![image](https://user-images.githubusercontent.com/51270026/234225763-e3259552-2b2a-422b-ba29-bb674862a901.png)
+
+

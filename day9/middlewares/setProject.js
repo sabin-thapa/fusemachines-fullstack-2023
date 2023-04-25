@@ -1,3 +1,5 @@
+const {projects} = require('../data')
+
 module.exports = setProject = (req, res, next) => {
     const projectId = parseInt(req.params.projectId)
     req.project = projects.find(prj => prj.id === projectId)

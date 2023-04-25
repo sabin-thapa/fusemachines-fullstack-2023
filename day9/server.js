@@ -11,8 +11,8 @@ const {authUser, authRole} = require('./middlewares/authUser')
 
 //middlewares
 app.use(express.json())
-app.use('/projects', projectRouter)
 app.use(setUser)
+app.use('/projects', projectRouter)
 
 const PORT = process.env.PORT || 3000
 

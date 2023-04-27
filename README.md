@@ -9,6 +9,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day5 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day5) | [Day5 Docs](#day5)
 - [Day8 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day8) | [Day8 Docs](#day8)
 - [Day9 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day9) | [Day9 Docs](#day9)
+- [Day10 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day10) | [Day10 Docs](#day10)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -1248,4 +1249,117 @@ router.get('/', authUser, (req, res) => {
   - DELETE (Own Project)
   ![image](https://user-images.githubusercontent.com/51270026/234225763-e3259552-2b2a-422b-ba29-bb674862a901.png)
 
+<hr />
 
+``` Apr 26 - Day 10 ``` <a name="day10"> </a>
+
+# Cashing in Node using redis <br />
+[Project Folder](./day10/)
+
+- Caching is a technique used in Node.js and other web technologies to store frequently accessed data in a fast-accessible cache, rather than repeatedly requesting the same data from the original source.
+
+- Caching is often used for data that is expensive or slow to compute, such as database queries or API calls. By caching the results, subsequent requests can be served quickly from the cache, rather than making a new request to the original source. Caching can also be used to store frequently accessed static assets, such as images or scripts, to improve page load times.
+
+- ```Node Redis``` is a library for Node.js that allows developers to interact with Redis, a popular open-source in-memory data store. Redis provides fast, scalable and flexible data storage and retrieval capabilities, and it's often used in web applications for caching, session management, and message queuing.
+
+This is a Node.js server code that uses Express.js as the web application framework, node-fetch as a module for making HTTP requests, and Redis as a caching layer. Here's an overview of the code:
+
+1. Import necessary modules:
+
+    ```js
+    const express = require("express");
+    const fetch = require("node-fetch");
+    const redis = require("redis");
+    ```
+2. Define environment variables for port and Redis port and cache expiration time:
+    ```js
+    const PORT = process.env.PORT || 5000;
+    const REDIS_PORT = process.env.REDIS_PORT || 6379;
+    const EXPIRATION_TIME = 3600;
+    ```
+
+3. Create an Express application and configure it to parse JSON requests:
+
+    ```js
+    const app = express();
+    app.use(express.json());
+    ```
+4. Create a Redis client and add event listeners for "connect" and "error" events:
+
+    ```js
+    const client = redis.createClient({ host: "localhost", port: REDIS_PORT });
+
+    client.on("connect", () => {
+      console.log("Connected to Redis");
+    });
+
+    client.on("error", (err) => {
+      console.error("Redis error:", err);
+    });
+    ```
+5. Define a function that returns an HTML string that shows the number of public repositories of a user:
+
+    ```js
+    const setResponse = (username, repos) => {
+    return `<h1> ${username} has ${repos} public repos. </h1>`;
+    };
+    ```
+6. Define an asynchronous function that fetches data from the GitHub API and caches it in Redis:
+
+    ```js
+    const getRepos = async (req, res, next) => {
+    try {
+      const { username } = req.params;
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      const data = await response.json();
+      const repos = data.public_repos;
+
+      //Setting data to redis
+      await client.set(username, repos, "EX", EXPIRATION_TIME);
+
+      res.send(setResponse(username, repos));
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Internal server error!");
+      }
+    };
+    ```
+
+7. Define a caching middleware that checks if the requested data is already cached in Redis:
+
+    ```js
+      const cache = async (req, res, next) => {
+      const { username } = req.params;
+      await client.get(username, (err, data) => {
+        if (err) {
+          console.error(err);
+          return next();
+        }
+        if (data !== null) {
+          console.log("CACHED DATA");
+          res.send(setResponse(username, data));
+        } else {
+          next();
+        }
+      });
+    };
+    ```
+
+8. Register a route in the Express application that uses the caching middleware and the function that fetches data from the GitHub API:
+
+    ```js
+    app.get("/users/:username", cache, getRepos);
+    ```
+
+9. Start the server:
+
+    ```js
+    app.listen(PORT, () => console.log("Server started on port:", PORT));
+    ```
+The above code is an example of using Redis caching in a Node.js application.
+
+It creates a Node.js Express server that listens on a specified port (either provided via an environment variable or defaulting to port 5000), and uses Redis to cache the results of API calls to the Github API for a specified period of time.
+
+The server exposes a single endpoint (/users/:username) that takes a Github username as a parameter. When a user makes a request to this endpoint, the server checks Redis to see if the requested username has been cached. If it has, the server returns the cached data. If not, the server makes an API call to the Github API to get the requested user's public repositories, caches the result in Redis for a specified period of time, and returns the result to the user.
+
+This approach helps to reduce the load on the Github API by caching frequently accessed data, and can also help to improve the response time of the server by avoiding unnecessary API calls.

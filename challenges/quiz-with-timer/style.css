@@ -93,6 +93,13 @@ body.wrong {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+
+.control-btns>.start-btn {
+    width: 220px;
+    text-align: center;
+    margin: 5px 0;
 }
 
 .start-btn,

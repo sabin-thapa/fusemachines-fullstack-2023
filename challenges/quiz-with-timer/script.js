@@ -1,4 +1,6 @@
 const startBtn = document.getElementById("start-btn");
+const instructionBtn = document.getElementById("instruction-btn");
+const aboutBtn = document.getElementById("about-btn");
 const nextBtn = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
@@ -36,6 +38,8 @@ function startQuiz() {
   containerElement.style.boxShadow = "0 0 10px 2px";
   containerElement.style.backgroundColor = "#fff";
   startBtn.classList.add("hide");
+  instructionBtn.classList.add("hide");
+  aboutBtn.classList.add("hide");
   questionContainerElement.classList.remove("hide");
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   currentQuestionIndex = 0;

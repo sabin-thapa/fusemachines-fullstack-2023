@@ -10,6 +10,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day8 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day8) | [Day8 Docs](#day8)
 - [Day9 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day9) | [Day9 Docs](#day9)
 - [Day10 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day10) | [Day10 Docs](#day10)
+- [Challenges Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/challenges) | [Quiz Challenge Docs](#quiz-challenge)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -1363,3 +1364,37 @@ It creates a Node.js Express server that listens on a specified port (either pro
 The server exposes a single endpoint (/users/:username) that takes a Github username as a parameter. When a user makes a request to this endpoint, the server checks Redis to see if the requested username has been cached. If it has, the server returns the cached data. If not, the server makes an API call to the Github API to get the requested user's public repositories, caches the result in Redis for a specified period of time, and returns the result to the user.
 
 This approach helps to reduce the load on the Github API by caching frequently accessed data, and can also help to improve the response time of the server by avoiding unnecessary API calls.
+
+<hr />
+
+``` May 3-4 ``` <a name="quiz-challenge"> </a>
+
+# Challenge: Quiz App using HTML, CSS and JS
+
+[Project Folder](./challenges/quiz-with-timer) <br />
+A quiz app is built using plain HTML, CSS and JS.
+
+### Features <br />
+
+1. Questions randomization
+2. Timer functionality
+3. Score card
+4. Instant score updates
+
+### Screenshots
+
+#### Homepage
+![image](https://user-images.githubusercontent.com/51270026/235934753-77803ebe-2f81-4537-8b93-b3869063b8f9.png)
+
+#### Quiz Page
+![image](https://user-images.githubusercontent.com/51270026/235934926-f879ab52-fe0c-46cc-8c3c-f35ac36d226f.png)
+
+#### UI
+![image](https://user-images.githubusercontent.com/51270026/235935076-434edb5c-1162-4fc6-9a1f-21d3096771ba.png)
+
+#### Question Card
+![image](https://user-images.githubusercontent.com/51270026/235935317-fc476883-b6c4-4604-8623-fffbb67b898b.png)
+
+#### Score card
+![image](https://user-images.githubusercontent.com/51270026/235935394-68c6001d-48d0-424f-957d-52d5e07bf10c.png)
+

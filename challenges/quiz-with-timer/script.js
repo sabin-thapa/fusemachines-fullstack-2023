@@ -16,7 +16,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit =   2000;
+const timeLimit = 2000;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -43,7 +43,7 @@ function startQuiz() {
 }
 
 function setNextQuestion() {
-  scoreContainer.classList.remove("hide"); 
+  scoreContainer.classList.remove("hide");
   clearState();
   timeLeft = timeLimit;
   timerElement.textContent = timeLeft;
@@ -90,8 +90,8 @@ function selectAnswer(e) {
   } else {
     // startBtn.innerText = "Restart Quiz";
     // startBtn.classList.remove("hide");
-    endQuiz()
-    showScore()
+    endQuiz();
+    showScore();
   }
 }
 
@@ -132,7 +132,7 @@ function startTimer() {
       ) {
         setNextQuestion();
       } else {
-        showScore()
+        showScore();
         endQuiz();
       }
     }
@@ -145,7 +145,7 @@ function endQuiz() {
   timeLeft = 0;
   shuffledQuestions = null;
   currentQuestionIndex = null;
-//   score = 0;
+  //   score = 0;
 
   // Hide quiz elements and show start button
   questionContainerElement.classList.add("hide");
@@ -158,8 +158,6 @@ function endQuiz() {
   // Reset container styles
   containerElement.style.boxShadow = "none";
   containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
-
-
 }
 
 function checkAnswer(answer, correct) {
@@ -174,30 +172,80 @@ function showScore() {
 
 const questions = [
   {
-    question: "What is the full form of OOP?",
-    answers: [
-      { text: "Object Oriented Programming", correct: true },
-      { text: "Object O Programming", correct: false },
-      { text: "Object Oriented P", correct: false },
-      { text: "Object OO PP", correct: false },
-    ],
-  },
-  {
-    question: "What is the full form of HTML?",
+    question: "What does HTML stand for?",
     answers: [
       { text: "Hyper Text Markup Language", correct: true },
-      { text: "Object O Programming", correct: false },
-      { text: "Object Oriented P", correct: false },
-      { text: "Object OO PP", correct: false },
+      { text: "Hyperlinks and Text Markup Language", correct: false },
+      { text: "Home Tool Markup Language", correct: false },
+      { text: "Hyperlink Tool Markup Language", correct: false },
     ],
   },
   {
-    question: "What is the full form of CSS?",
+    question: "What does CSS stand for?",
     answers: [
-      { text: "Object Oriented Programming", correct: false },
-      { text: "Object O Programming", correct: false },
-      { text: "Cascading Style Sheet", correct: true },
-      { text: "Object OO PP", correct: false },
+      { text: "Cascading Style Sheets", correct: true },
+      { text: "Cascading Style System", correct: false },
+      { text: "Cascading Sheet Styles", correct: false },
+      { text: "Cascading Style Syntax", correct: false },
+    ],
+  },
+  {
+    question: "What does JS stand for?",
+    answers: [
+      { text: "JavaScript", correct: true },
+      { text: "JavaSyntax", correct: false },
+      { text: "JellyScript", correct: false },
+      { text: "JavaStyle", correct: false },
+    ],
+  },
+  {
+    question: "What is the purpose of HTML?",
+    answers: [
+      { text: "To define the structure of web pages", correct: true },
+      { text: "To style web pages", correct: false },
+      { text: "To add interactivity to web pages", correct: false },
+      { text: "To communicate with databases", correct: false },
+    ],
+  },
+  {
+    question: "What is the purpose of CSS?",
+    answers: [
+      { text: "To style web pages", correct: true },
+      { text: "To define the structure of web pages", correct: false },
+      { text: "To add interactivity to web pages", correct: false },
+      { text: "To communicate with databases", correct: false },
+    ],
+  },
+  {
+    question: "What is the purpose of JavaScript?",
+    answers: [
+      { text: "To add interactivity to web pages", correct: true },
+      { text: "To define the structure of web pages", correct: false },
+      { text: "To style web pages", correct: false },
+      { text: "To communicate with databases", correct: false },
+    ],
+  },
+  {
+    question: "What is the correct syntax for an HTML comment?",
+    answers: [
+      { text: "<!-- This is a comment -->", correct: true },
+      { text: "// This is a comment", correct: false },
+      { text: "/* This is a comment */", correct: false },
+      { text: "<comment>This is a comment</comment>", correct: false },
+    ],
+  },
+    {
+    question: "What is the correct syntax for an external JS file?",
+    answers: [
+      { text: "<script src='myscript.js'></script>", correct: true },
+      {
+        text: "<link rel='script' type='text/js' href='myscript.js'>",
+        correct: false,
+      },
+      {
+        text: "<head> <script src='myscript.js'></script> </head>",
+        correct: false,
+      },
     ],
   },
 ];

@@ -6,6 +6,7 @@ const answerButtonsElement = document.getElementById("answer-btns");
 const questionCountElement = document.getElementById("question-count");
 const timerElement = document.getElementById("timer");
 const scoreElement = document.getElementById("score");
+const scoreContainer = document.getElementById("score-container");
 
 startBtn.addEventListener("click", startQuiz);
 
@@ -15,7 +16,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 22;
+const timeLimit =   2000;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -42,7 +43,7 @@ function startQuiz() {
 }
 
 function setNextQuestion() {
-  scoreElement.classList.remove("hide"); 
+  scoreContainer.classList.remove("hide"); 
   clearState();
   timeLeft = timeLimit;
   timerElement.textContent = timeLeft;
@@ -89,8 +90,8 @@ function selectAnswer(e) {
   } else {
     // startBtn.innerText = "Restart Quiz";
     // startBtn.classList.remove("hide");
-    showScore()
     endQuiz()
+    showScore()
   }
 }
 
@@ -131,6 +132,7 @@ function startTimer() {
       ) {
         setNextQuestion();
       } else {
+        showScore()
         endQuiz();
       }
     }
@@ -140,10 +142,10 @@ function startTimer() {
 function endQuiz() {
   // Reset variables
   clearInterval(timerId);
-  timeLeft = timeLimit;
+  timeLeft = 0;
   shuffledQuestions = null;
   currentQuestionIndex = null;
-  score = 0;
+//   score = 0;
 
   // Hide quiz elements and show start button
   questionContainerElement.classList.add("hide");
@@ -156,6 +158,8 @@ function endQuiz() {
   // Reset container styles
   containerElement.style.boxShadow = "none";
   containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+
+
 }
 
 function checkAnswer(answer, correct) {
@@ -165,7 +169,7 @@ function checkAnswer(answer, correct) {
 }
 
 function showScore() {
-  scoreElement.innerText = `Score: ${score}`;
+  scoreElement.innerText = score;
 }
 
 const questions = [
@@ -190,9 +194,9 @@ const questions = [
   {
     question: "What is the full form of CSS?",
     answers: [
-      { text: "Object Oriented Programming", correct: true },
+      { text: "Object Oriented Programming", correct: false },
       { text: "Object O Programming", correct: false },
-      { text: "Cascading Style Sheet", correct: false },
+      { text: "Cascading Style Sheet", correct: true },
       { text: "Object OO PP", correct: false },
     ],
   },

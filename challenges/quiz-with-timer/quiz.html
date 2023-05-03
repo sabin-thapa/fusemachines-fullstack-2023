@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
   </head>
+  <header class="header">Challenge: Quiz App With Timer ⌛ ⏱️</header>
   <body class="correct content">
-    <header class="header">Quiz App With Timer ⌛ ⏱️</header>
     <div class="container" id="container">
       <div id="question-container" class="hide">
         <div class="section">
           <p id="question-count" class="small-font">Question 1 of 10</p>
-          <p class="small-font">Time remaining: <span id='timer'> <strong> 10 </strong> </span>s </p>
+          <p class="time-remaining"> ⏱️    <span id='timer'> <strong> 10 </strong> </span>s </p>
         </div>
         <div id="question">Question</div>
         <div id="answer-btns" class="btn-grid">
@@ -28,7 +28,11 @@
         <div id="start-btn" class="start-btn btn">Start Quiz</div>
         <div id="next-btn" class="next-btn btn hide">Next</div>
       </div>
-      <div class="score hide" id="score">Score: 0 </span></div>
+    </div>
+    <div id="score-container" class="score-container hide">
+      <p class="pin">📌</p>
+      <div class="score-text">Score</div>
+      <div class="score-value" id="score">0</div>
     </div>
   </body>
   <footer class="footer"> Copyrights &copy; Sabin Thapa | Fusemachines Internship 2023 </footer>

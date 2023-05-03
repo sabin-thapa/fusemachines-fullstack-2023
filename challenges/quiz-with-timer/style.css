@@ -1,126 +1,165 @@
-*, *::before, *::after {
-    box-sizing: border-box;
-    font-family: fantasy;
-    font-size: 105%;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: fantasy;
+  font-size: 105%;
 }
 
 :root {
-    --hue-neutral: 200; /* Blue */
-    --hue-correct: 145; /* Green */
-    --hue-wrong: 0; /* Red */
+  --hue-neutral: 200; /* Blue */
+  --hue-correct: 145; /* Green */
+  --hue-wrong: 0; /* Red */
 }
 
 body {
-    margin: 0;
-    padding:0 ;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-color: hsl(200, 100%, 25%);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: hsl(200, 100%, 25%);
 }
 
 body.correct {
-    --hue: var(--hue-correct);
+  --hue: var(--hue-correct);
 }
 
 body.wrong {
-    --hue: var(--hue-wrong);
+  --hue: var(--hue-wrong);
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    
+    position: relative;
+  display: flex;
+  flex-direction: row;
 }
 .header {
-    --hue: var(--hue-neutral); 
-    font-size: 1.8rem;
-    font-weight: bold;
-    position: fixed;
-    top: 40px;
-    color: #fff;
-    padding: 10px;
+  --hue: var(--hue-neutral);
+  font-size: 1.8rem;
+  font-weight: bold;
+  position: fixed;
+  top: 40px;
+  color: #fff;
+  padding: 10px;
 }
 
 .container {
-    width: 800px;
-    max-width: 70%;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 2px;
+  position: relative;
+  width: 800px;
+  max-width: 70%;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 2px;
+  height: 350px;
 }
 
 .btn-grid {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 10px;
-    margin: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 10px 0;
 }
 
 .btn {
-    --hue: var(--hue-neutral);
-    border: 2px solid hsl(var(--hue), 100%, 30%);
-    background-color: hsl(var(--hue),  100%, 50%);
-    border-radius: 10px;
-    padding: 10px 5px;
-    color: #fff;
-    outline: none;
-    cursor: pointer;
+  --hue: var(--hue-neutral);
+  border: 2px solid hsl(var(--hue), 100%, 30%);
+  background-color: hsl(var(--hue), 100%, 50%);
+  border-radius: 10px;
+  padding: 10px 5px;
+  color: #fff;
+  outline: none;
+  cursor: pointer;
 }
 
 .btn.correct {
-    --hue: var(--hue-correct);
+  --hue: var(--hue-correct);
 }
 
 .btn.wrong {
-    --hue: var(--hue-wrong)
+  --hue: var(--hue-wrong);
 }
 
 .btn:hover {
-    --hue: var(--hue-neutral);
-    border-color: hsl(var(--hue),  100%, 10%);
+  --hue: var(--hue-neutral);
+  border-color: hsl(var(--hue), 100%, 10%);
 }
 
 .control-btns {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.start-btn, .next-btn {
-    font-size: 1.5rem;
-    padding: 10px 20px;
-    font-weight: bold;
+.start-btn,
+.next-btn {
+  font-size: 1.5rem;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.next-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 /*  */
 .small-font {
-   font-size: 0.9rem; 
+  font-size: 18px;
 }
 
 .section {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .footer {
-    position: fixed;
-    bottom: 15px;
-    color: #fff;
-    font-size: 0.9rem;
+  position: fixed;
+  bottom: 15px;
+  color: #fff;
 }
 
-.score {
-    text-align: center;
-    margin-top: 10px;
+.score-container {
+ background-color: #f7ebeb;
+ height: 200px;
+ width: 160px;
+ border-radius: 10px;
+ position: absolute;
+ right: 10%;
+ top: 10%;
+ padding: 15px;
+}
+
+.score-text, .score-value {
+    color: hsl(200, 100%, 25%);
     font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.score-value {
+    font-size: 6rem;
+}
+
+.time-remaining {
+    background-color: hsl(200, 100%, 80%);
+    padding: 12px;
+    border-radius: 18px;
+}
+
+.pin {
+  position: absolute;
+  right: -20px;
+  top: -45px;
+  font-size: 1.8rem;
 }

@@ -16,7 +16,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 2000;
+const timeLimit = 10;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -47,6 +47,7 @@ function setNextQuestion() {
   clearState();
   timeLeft = timeLimit;
   timerElement.textContent = timeLeft;
+  clearInterval(timerId);
   startTimer();
   if (shuffledQuestions && shuffledQuestions.length > 0) {
     showQuestion(shuffledQuestions[currentQuestionIndex]);
@@ -236,7 +237,7 @@ const questions = [
       { text: "<comment>This is a comment</comment>", correct: false },
     ],
   },
-    {
+  {
     question: "What is the correct syntax for an external JS file?",
     answers: [
       { text: "<script src='myscript.js'></script>", correct: true },

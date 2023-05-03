@@ -83,6 +83,8 @@ function selectAnswer(e) {
   setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
+    // Disable button after each selection
+    button.disabled = true;
   });
 
   if (shuffledQuestions.length > currentQuestionIndex + 1) {

@@ -11,7 +11,6 @@
 }
 
 body {
-    --hue: var(--hue-neutral);
     margin: 0;
     padding:0 ;
     display: flex;
@@ -19,7 +18,7 @@ body {
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: hsl(var(--hue), 100%, 25%);
+    background-color: hsl(200, 100%, 25%);
 }
 
 body.correct {
@@ -102,6 +101,13 @@ body.wrong {
 }
 
 /*  */
-.question-count {
+.small-font {
    font-size: 0.9rem; 
+}
+
+.section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }

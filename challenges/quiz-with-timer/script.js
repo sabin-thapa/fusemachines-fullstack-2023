@@ -3,16 +3,23 @@ const nextBtn = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btns");
-const questionCountElement = document.getElementById('question-count')
-
+const questionCountElement = document.getElementById("question-count");
+const timerElement = document.getElementById("timer");
 
 startBtn.addEventListener("click", startQuiz);
 
 let shuffledQuestions, currentQuestionIndex;
 
-const containerElement = document.getElementById('container')
-containerElement.style.boxShadow = 'none';
-containerElement.style.backgroundColor = 'hsl(145, 100%, 25%)';
+// Timi limit for quiz
+const timeLimit = 2;
+
+//Initialize timer
+let timeLeft = timeLimit;
+let timerId = null;
+
+const containerElement = document.getElementById("container");
+containerElement.style.boxShadow = "none";
+containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
 
 nextBtn.addEventListener("click", () => {
   currentQuestionIndex++;
@@ -22,7 +29,7 @@ nextBtn.addEventListener("click", () => {
 function startQuiz() {
   console.log("Started");
   containerElement.style.boxShadow = "0 0 10px 2px";
-  containerElement.style.backgroundColor = '#fff';
+  containerElement.style.backgroundColor = "#fff";
   startBtn.classList.add("hide");
   questionContainerElement.classList.remove("hide");
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
@@ -32,11 +39,18 @@ function startQuiz() {
 
 function setNextQuestion() {
   clearState();
-  showQuestion(shuffledQuestions[currentQuestionIndex]);
+  timeLeft = timeLimit;
+  timerElement.textContent = timeLeft;
+  startTimer();
+  if (shuffledQuestions && shuffledQuestions.length > 0) {
+    showQuestion(shuffledQuestions[currentQuestionIndex]);
+  }
 }
 
 function showQuestion(question) {
-  questionCountElement.innerText = `Question ${currentQuestionIndex+1} of ${questions.length}`;
+  questionCountElement.innerText = `Question ${currentQuestionIndex + 1} of ${
+    questions.length
+  }`;
   questionElement.innerText = question.question;
   question.answers.forEach((answer) => {
     const button = document.createElement("button");
@@ -90,6 +104,46 @@ function clearStatusClass(element) {
   element.classList.remove("wrong");
 }
 
+function startTimer() {
+  timerId = setInterval(() => {
+    timeLeft--;
+    timerElement.textContent = timeLeft;
+    if (timeLeft === 0) {
+      clearInterval(timerId);
+      currentQuestionIndex++;
+      if (
+        shuffledQuestions &&
+        shuffledQuestions.length >= currentQuestionIndex + 1
+      ) {
+        setNextQuestion();
+      } else {
+        endQuiz()
+      }
+    }
+  }, 1000);
+}
+
+function endQuiz() {
+    // Reset variables
+    clearInterval(timerId);
+    timeLeft = timeLimit;
+    shuffledQuestions = null;
+    currentQuestionIndex = null;
+  
+    // Hide quiz elements and show start button
+    questionContainerElement.classList.add("hide");
+    nextBtn.classList.add("hide");
+    while (answerButtonsElement.firstChild) {
+      answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
+    startBtn.classList.remove("hide");
+  
+    // Reset container styles
+    containerElement.style.boxShadow = "none";
+    containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+  }
+  
+
 const questions = [
   {
     question: "What is the full form of OOP?",
@@ -115,24 +169,6 @@ const questions = [
       { text: "Object Oriented Programming", correct: true },
       { text: "Object O Programming", correct: false },
       { text: "Cascading Style Sheet", correct: false },
-      { text: "Object OO PP", correct: false },
-    ],
-  },
-  {
-    question: "What is the full form of FTP?",
-    answers: [
-      { text: "Object Oriented Programming", correct: false },
-      { text: "Object O Programming", correct: false },
-      { text: "Object Oriented P", correct: false },
-      { text: "File Transfer Protocol", correct: true },
-    ],
-  },
-  {
-    question: "What is the full form of XML?",
-    answers: [
-      { text: "Object Oriented Programming", correct: false },
-      { text: "Extensible Markup Language", correct: true },
-      { text: "Object Oriented P", correct: false },
       { text: "Object OO PP", correct: false },
     ],
   },

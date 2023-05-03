@@ -5,13 +5,17 @@ const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btns");
 const questionCountElement = document.getElementById("question-count");
 const timerElement = document.getElementById("timer");
+const scoreElement = document.getElementById("score");
 
 startBtn.addEventListener("click", startQuiz);
 
 let shuffledQuestions, currentQuestionIndex;
 
-// Timi limit for quiz
-const timeLimit = 2;
+//Score
+let score = 0;
+
+// Time limit for quiz
+const timeLimit = 22;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -38,6 +42,7 @@ function startQuiz() {
 }
 
 function setNextQuestion() {
+  scoreElement.classList.remove("hide"); 
   clearState();
   timeLeft = timeLimit;
   timerElement.textContent = timeLeft;
@@ -67,6 +72,13 @@ function showQuestion(question) {
 function selectAnswer(e) {
   const selectedAnswer = e.target;
   const correct = selectedAnswer.dataset.correct;
+
+  // Check answer and give scores
+  checkAnswer(selectedAnswer, correct);
+
+  //show score
+  showScore();
+
   setStatusClass(document.body, correct);
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
@@ -75,8 +87,10 @@ function selectAnswer(e) {
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
     nextBtn.classList.remove("hide");
   } else {
-    startBtn.innerText = "Restart Quiz";
-    startBtn.classList.remove("hide");
+    // startBtn.innerText = "Restart Quiz";
+    // startBtn.classList.remove("hide");
+    showScore()
+    endQuiz()
   }
 }
 
@@ -117,32 +131,42 @@ function startTimer() {
       ) {
         setNextQuestion();
       } else {
-        endQuiz()
+        endQuiz();
       }
     }
   }, 1000);
 }
 
 function endQuiz() {
-    // Reset variables
-    clearInterval(timerId);
-    timeLeft = timeLimit;
-    shuffledQuestions = null;
-    currentQuestionIndex = null;
-  
-    // Hide quiz elements and show start button
-    questionContainerElement.classList.add("hide");
-    nextBtn.classList.add("hide");
-    while (answerButtonsElement.firstChild) {
-      answerButtonsElement.removeChild(answerButtonsElement.firstChild);
-    }
-    startBtn.classList.remove("hide");
-  
-    // Reset container styles
-    containerElement.style.boxShadow = "none";
-    containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+  // Reset variables
+  clearInterval(timerId);
+  timeLeft = timeLimit;
+  shuffledQuestions = null;
+  currentQuestionIndex = null;
+  score = 0;
+
+  // Hide quiz elements and show start button
+  questionContainerElement.classList.add("hide");
+  nextBtn.classList.add("hide");
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
-  
+  startBtn.classList.remove("hide");
+
+  // Reset container styles
+  containerElement.style.boxShadow = "none";
+  containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+}
+
+function checkAnswer(answer, correct) {
+  if (answer.dataset.correct) {
+    score++;
+  }
+}
+
+function showScore() {
+  scoreElement.innerText = `Score: ${score}`;
+}
 
 const questions = [
   {

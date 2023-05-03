@@ -111,3 +111,16 @@ body.wrong {
     justify-content: space-between;
     align-items: center;
 }
+
+.footer {
+    position: fixed;
+    bottom: 15px;
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.score {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}

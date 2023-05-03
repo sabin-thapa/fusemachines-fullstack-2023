@@ -5,9 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz App</title>
-    <link rel="stylesheet" href="quiz.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
-<body>
-    <h1>This is a quiz app</h1>
+<body class="correct">
+    <h1>Quiz App</h1>
+    <div class="container">
+        <div class="question-container hide">
+            <div id="question">Question</div>
+            <div id="answer-btns" class="btn-grid">
+                <button class="btn">Answer 1</button>
+                <button class="btn btn-correct">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+            </div>
+        </div>
+        <div class="control-btns">
+            <div id="start-btn" class="start-btn btn">Start</div>
+            <div id="next-btn" class="next-btn btn hide">Next</div>
+        </div>
+    </div>
 </body>
 </html>

@@ -1367,7 +1367,7 @@ This approach helps to reduce the load on the Github API by caching frequently a
 
 <hr />
 
-``` May 3-4 ``` <a name="day4"> </a>
+``` May 3-4 ``` <a name="quiz-challenge"> </a>
 
 # Challenge: Quiz App using HTML, CSS and JS
 

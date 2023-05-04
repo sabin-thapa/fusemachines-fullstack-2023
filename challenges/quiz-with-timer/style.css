@@ -74,7 +74,7 @@ body.wrong {
   outline: none;
   cursor: pointer;
   text-align: left;
-  font-size: 0.98rem;
+  font-size: 18px;
 }
 
 .btn.correct {
@@ -122,9 +122,7 @@ body.wrong {
   bottom: 10px;
 }
 
-.hide {
-  display: none;
-}
+
 
 /*  */
 .small-font {
@@ -197,6 +195,8 @@ body.wrong {
 .quit-btn {
   margin: 10px;
   padding: 16px;
+  width: 80px;
+  text-align: center;
 }
 
 .play-again-text {
@@ -212,4 +212,19 @@ body.wrong {
 .quit-btn:hover {
   --hue: var(--hue-wrong);
   border-color: hsl(var(--hue), 100%, 70%);
+}
+/* .score-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 800px;
+  height: 350px;
+  background-color: #fff;
+  border-radius: 15px;
+} */
+
+.hide {
+  display: none;
 }

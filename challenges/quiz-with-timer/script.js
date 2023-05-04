@@ -29,7 +29,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 3;
+const timeLimit = 5;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -84,6 +84,8 @@ function setNextQuestion() {
   startTimer();
   if (shuffledQuestions && shuffledQuestions.length > 0) {
     showQuestion(shuffledQuestions[currentQuestionIndex]);
+  } else {
+    showScore()
   }
 }
 

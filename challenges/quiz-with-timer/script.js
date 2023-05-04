@@ -16,6 +16,8 @@ const scoreElement = document.getElementById("score");
 const scoreContainer = document.getElementById("score-container");
 const scoreSectionElement = document.getElementById("score-section");
 const scoreTextElement = document.getElementById('score-text')
+const greetingTextElement = document.getElementById('greeting-text')
+
 
 startBtn.addEventListener("click", startQuiz);
 endBtn.addEventListener("click", endQuiz);
@@ -219,6 +221,11 @@ function hideEndBtn() {
 
 function displayFinalScore() {
   scoreSectionElement.classList.remove("hide");
+  if (score > 0) {
+    greetingTextElement.innerText = 'Congratulations! 🎉'
+  } else {
+    greetingTextElement.innerText = 'OOPS...! 🤭'
+  }
   scoreTextElement.innerText = `You scored ${score} pts.`
 }
 

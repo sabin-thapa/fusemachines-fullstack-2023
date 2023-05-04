@@ -26,54 +26,54 @@ export const questions = [
       { text: "JavaStyle", correct: false },
     ],
   },
-  {
-    question: "What is the purpose of HTML?",
-    answers: [
-      { text: "To define the structure of web pages", correct: true },
-      { text: "To style web pages", correct: false },
-      { text: "To add interactivity to web pages", correct: false },
-      { text: "To communicate with databases", correct: false },
-    ],
-  },
-  {
-    question: "What is the purpose of CSS?",
-    answers: [
-      { text: "To style web pages", correct: true },
-      { text: "To define the structure of web pages", correct: false },
-      { text: "To add interactivity to web pages", correct: false },
-      { text: "To communicate with databases", correct: false },
-    ],
-  },
-  {
-    question: "What is the purpose of JavaScript?",
-    answers: [
-      { text: "To add interactivity to web pages", correct: true },
-      { text: "To define the structure of web pages", correct: false },
-      { text: "To style web pages", correct: false },
-      { text: "To communicate with databases", correct: false },
-    ],
-  },
-  {
-    question: "What is the correct syntax for an HTML comment?",
-    answers: [
-      { text: "<!-- This is a comment -->", correct: true },
-      { text: "// This is a comment", correct: false },
-      { text: "/* This is a comment */", correct: false },
-      { text: "<comment>This is a comment</comment>", correct: false },
-    ],
-  },
-  {
-    question: "What is the correct syntax for an external JS file?",
-    answers: [
-      { text: "<script src='myscript.js'></script>", correct: true },
-      {
-        text: "<link rel='script' type='text/js' href='myscript.js'>",
-        correct: false,
-      },
-      {
-        text: "<head> <script src='myscript.js'></script> </head>",
-        correct: false,
-      },
-    ],
-  },
+  // {
+  //   question: "What is the purpose of HTML?",
+  //   answers: [
+  //     { text: "To define the structure of web pages", correct: true },
+  //     { text: "To style web pages", correct: false },
+  //     { text: "To add interactivity to web pages", correct: false },
+  //     { text: "To communicate with databases", correct: false },
+  //   ],
+  // },
+  // {
+  //   question: "What is the purpose of CSS?",
+  //   answers: [
+  //     { text: "To style web pages", correct: true },
+  //     { text: "To define the structure of web pages", correct: false },
+  //     { text: "To add interactivity to web pages", correct: false },
+  //     { text: "To communicate with databases", correct: false },
+  //   ],
+  // },
+  // {
+  //   question: "What is the purpose of JavaScript?",
+  //   answers: [
+  //     { text: "To add interactivity to web pages", correct: true },
+  //     { text: "To define the structure of web pages", correct: false },
+  //     { text: "To style web pages", correct: false },
+  //     { text: "To communicate with databases", correct: false },
+  //   ],
+  // },
+  // {
+  //   question: "What is the correct syntax for an HTML comment?",
+  //   answers: [
+  //     { text: "<!-- This is a comment -->", correct: true },
+  //     { text: "// This is a comment", correct: false },
+  //     { text: "/* This is a comment */", correct: false },
+  //     { text: "<comment>This is a comment</comment>", correct: false },
+  //   ],
+  // },
+  // {
+  //   question: "What is the correct syntax for an external JS file?",
+  //   answers: [
+  //     { text: "<script src='myscript.js'></script>", correct: true },
+  //     {
+  //       text: "<link rel='script' type='text/js' href='myscript.js'>",
+  //       correct: false,
+  //     },
+  //     {
+  //       text: "<head> <script src='myscript.js'></script> </head>",
+  //       correct: false,
+  //     },
+  //   ],
+  // },
 ];

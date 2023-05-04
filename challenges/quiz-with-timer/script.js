@@ -1,9 +1,12 @@
-import {questions} from './questions.js' 
+import { questions } from "./questions.js";
 
 const startBtn = document.getElementById("start-btn");
 const instructionBtn = document.getElementById("instruction-btn");
 const aboutBtn = document.getElementById("about-btn");
 const nextBtn = document.getElementById("next-btn");
+const playAgainButton = document.getElementById("play-again-btn");
+const quitButton = document.getElementById("quit-btn");
+const endBtn = document.getElementById("end-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-btns");
@@ -11,8 +14,14 @@ const questionCountElement = document.getElementById("question-count");
 const timerElement = document.getElementById("timer");
 const scoreElement = document.getElementById("score");
 const scoreContainer = document.getElementById("score-container");
+const scoreSectionElement = document.getElementById("score-section");
+const scoreTextElement = document.getElementById('score-text')
 
 startBtn.addEventListener("click", startQuiz);
+endBtn.addEventListener("click", endQuiz);
+playAgainButton.addEventListener('click', startQuiz)
+quitButton.addEventListener('click', quitQuiz)
+
 
 let shuffledQuestions, currentQuestionIndex;
 
@@ -20,7 +29,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 10;
+const timeLimit = 3;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -37,14 +46,17 @@ nextBtn.addEventListener("click", () => {
 
 function startQuiz() {
   console.log("Started");
+  scoreElement.innerText = 0
   containerElement.style.boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px";
   containerElement.style.backgroundColor = "#fff";
   startBtn.classList.add("hide");
+  hideEndBtn();
   instructionBtn.classList.add("hide");
   aboutBtn.classList.add("hide");
+  scoreSectionElement.classList.add('hide')
   questionContainerElement.classList.remove("hide");
-  
-  shuffleQuestionsAndAnswers()
+
+  shuffleQuestionsAndAnswers();
 
   currentQuestionIndex = 0;
   setNextQuestion();
@@ -53,11 +65,14 @@ function startQuiz() {
 function shuffleQuestionsAndAnswers() {
   shuffledQuestions = questions.sort(() => Math.random() - 0.5);
   questions.forEach((question) => {
-    for(let i = question.answers.length - 1; i>0; i-- ) {
+    for (let i = question.answers.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [question.answers[i], question.answers[j]] = [question.answers[j], question.answers[i]];
+      [question.answers[i], question.answers[j]] = [
+        question.answers[j],
+        question.answers[i],
+      ];
     }
-  })
+  });
 }
 
 function setNextQuestion() {
@@ -108,10 +123,12 @@ function selectAnswer(e) {
 
   if (shuffledQuestions.length > currentQuestionIndex + 1) {
     nextBtn.classList.remove("hide");
+  } else if (shuffledQuestions.length == currentQuestionIndex + 1) {
+    endBtn.classList.remove("hide");
   } else {
     // startBtn.innerText = "Restart Quiz";
     // startBtn.classList.remove("hide");
-    endQuiz();
+    // endQuiz();
     showScore();
   }
 }
@@ -161,12 +178,14 @@ function startTimer() {
 }
 
 function endQuiz() {
+  //Hide end button
+  hideEndBtn();
+
   // Reset variables
   clearInterval(timerId);
   timeLeft = 0;
   shuffledQuestions = null;
   currentQuestionIndex = null;
-  //   score = 0;
 
   // Hide quiz elements and show start button
   questionContainerElement.classList.add("hide");
@@ -174,11 +193,12 @@ function endQuiz() {
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
-  startBtn.classList.remove("hide");
 
   // Reset container styles
   containerElement.style.boxShadow = "none";
   containerElement.style.backgroundColor = "hsl(203, 53%, 93%)";
+
+  displayFinalScore();
 }
 
 function checkAnswer(answer, correct) {
@@ -189,4 +209,22 @@ function checkAnswer(answer, correct) {
 
 function showScore() {
   scoreElement.innerText = score;
+}
+
+function hideEndBtn() {
+  endBtn.classList.add("hide");
+}
+
+function displayFinalScore() {
+  scoreSectionElement.classList.remove("hide");
+  scoreTextElement.innerText = `You scored ${score} pts.`
+}
+
+function quitQuiz() {
+  score = 0;
+  scoreElement.innerText = 0;
+  startBtn.classList.remove("hide");
+  instructionBtn.classList.remove("hide");
+  aboutBtn.classList.remove("hide");
+  scoreSectionElement.classList.add("hide");
 }

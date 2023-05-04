@@ -75,7 +75,6 @@ body.wrong {
   cursor: pointer;
   text-align: left;
   font-size: 0.98rem;
-  
 }
 
 .btn.correct {
@@ -107,16 +106,17 @@ body.wrong {
 }
 
 .start-btn,
-.next-btn {
+.next-btn,
+.end-btn {
   font-size: 1.2rem;
   padding: 10px 20px;
   font-weight: bold;
   background-color: #fff;
-  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
-
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
 }
 
-.next-btn {
+.next-btn,
+.end-btn {
   position: absolute;
   right: 20px;
   bottom: 10px;
@@ -172,7 +172,6 @@ body.wrong {
 
 .time-remaining {
   color: hsl(200, 100%, 25%);
-
 }
 
 .pin {
@@ -182,10 +181,35 @@ body.wrong {
   font-size: 1.8rem;
 }
 
-
 .question {
   color: #464545;
   margin-bottom: 10px;
   font-size: 1.2rem;
   font-weight: 500;
+}
+
+.play-btns {
+  display: flex;
+  justify-content: center;
+}
+
+.play-again-btn,
+.quit-btn {
+  margin: 10px;
+  padding: 16px;
+}
+
+.play-again-text {
+  text-align: center;
+  color: hsl(200, 100%, 25%);
+}
+
+.play-again-btn:hover {
+  --hue: var(--hue-correct);
+  border-color: hsl(var(--hue), 100%, 70%);
+}
+
+.quit-btn:hover {
+  --hue: var(--hue-wrong);
+  border-color: hsl(var(--hue), 100%, 70%);
 }

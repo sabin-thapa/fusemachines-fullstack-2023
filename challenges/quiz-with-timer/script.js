@@ -20,7 +20,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 10;
+const timeLimit = 1000;
 
 //Initialize timer
 let timeLeft = timeLimit;
@@ -28,7 +28,7 @@ let timerId = null;
 
 const containerElement = document.getElementById("container");
 containerElement.style.boxShadow = "none";
-containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+containerElement.style.backgroundColor = "hsl(203, 53%, 93%)";
 
 nextBtn.addEventListener("click", () => {
   currentQuestionIndex++;
@@ -37,7 +37,7 @@ nextBtn.addEventListener("click", () => {
 
 function startQuiz() {
   console.log("Started");
-  containerElement.style.boxShadow = "0 0 10px 2px";
+  containerElement.style.boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px";
   containerElement.style.backgroundColor = "#fff";
   startBtn.classList.add("hide");
   instructionBtn.classList.add("hide");

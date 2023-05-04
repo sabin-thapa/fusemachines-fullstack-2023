@@ -20,7 +20,7 @@ let shuffledQuestions, currentQuestionIndex;
 let score = 0;
 
 // Time limit for quiz
-const timeLimit = 1000;
+const timeLimit = 10;
 
 //Initialize timer
 let timeLeft = timeLimit;

@@ -178,7 +178,7 @@ function endQuiz() {
 
   // Reset container styles
   containerElement.style.boxShadow = "none";
-  containerElement.style.backgroundColor = "hsl(200, 100%, 25%)";
+  containerElement.style.backgroundColor = "hsl(203, 53%, 93%)";
 }
 
 function checkAnswer(answer, correct) {

@@ -43,9 +43,21 @@ function startQuiz() {
   instructionBtn.classList.add("hide");
   aboutBtn.classList.add("hide");
   questionContainerElement.classList.remove("hide");
-  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  
+  shuffleQuestionsAndAnswers()
+
   currentQuestionIndex = 0;
   setNextQuestion();
+}
+
+function shuffleQuestionsAndAnswers() {
+  shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  questions.forEach((question) => {
+    for(let i = question.answers.length - 1; i>0; i-- ) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [question.answers[i], question.answers[j]] = [question.answers[j], question.answers[i]];
+    }
+  })
 }
 
 function setNextQuestion() {

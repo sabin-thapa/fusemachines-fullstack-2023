@@ -17,6 +17,7 @@ const scoreContainer = document.getElementById("score-container");
 const scoreSectionElement = document.getElementById("score-section");
 const scoreTextElement = document.getElementById('score-text')
 const greetingTextElement = document.getElementById('greeting-text')
+const quizImgElement = document.getElementById('quiz-img')
 
 
 startBtn.addEventListener("click", startQuiz);
@@ -48,6 +49,7 @@ nextBtn.addEventListener("click", () => {
 
 function startQuiz() {
   console.log("Started");
+  quizImgElement.classList.add('hide')
   questionContainerElement.classList.remove("hide");
   scoreElement.innerText = 0
   containerElement.style.boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px";
@@ -236,4 +238,5 @@ function quitQuiz() {
   instructionBtn.classList.remove("hide");
   aboutBtn.classList.remove("hide");
   scoreSectionElement.classList.add("hide");
+  quizImgElement.classList.remove('hide')
 }

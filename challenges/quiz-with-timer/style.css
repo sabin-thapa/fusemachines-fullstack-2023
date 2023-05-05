@@ -4,6 +4,7 @@
   box-sizing: border-box;
   font-family: fantasy;
   font-size: 105%;
+  max-height: 90vh;
 }
 
 :root {
@@ -11,6 +12,7 @@
   --hue-correct: 145; /* Green */
   --hue-wrong: 0; /* Red */
 }
+
 
 body {
   margin: 0;
@@ -35,15 +37,31 @@ body.wrong {
   position: relative;
   display: flex;
   flex-direction: row;
+  margin-top: 100px;
 }
 .header {
   --hue: var(--hue-neutral);
-  font-size: 1.6rem;
+  font-size: 2rem;
   font-weight: bold;
   position: fixed;
+  left: 30%;
   top: 20px;
-  color: hsl(var(--hue), 100%, 30%);
+  /* color: hsl(var(--hue), 100%, 30%); */
+  color:rgb(64,61,86);
   padding: 10px;
+  border-bottom: 1px dotted rgb(64,61,86);
+}
+
+.main-nav > h1 {
+  position: fixed;
+  left:28%;
+  top: 100px;
+  font-size: 1.8rem;
+  margin: 40px 0;
+}
+
+.play-now-text {
+  color:rgba(64,61,86, 90%) ;
 }
 
 .container {
@@ -54,7 +72,7 @@ body.wrong {
   padding: 20px;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-  height: 400px;
+  height: 420px;
 }
 
 .btn-grid {
@@ -75,6 +93,7 @@ body.wrong {
   cursor: pointer;
   text-align: center;
   font-size: 18px;
+  transition: all 0.2s ease-in-out;
 }
 
 .btn.correct {
@@ -90,6 +109,8 @@ body.wrong {
 .btn:hover {
   --hue: var(--hue-neutral);
   border-color: hsl(var(--hue), 100%, 70%);
+  background-color: #fff;
+  color: rgb(64,61,86);
 }
 
 .control-btns {
@@ -102,13 +123,13 @@ body.wrong {
 .control-btns > .start-btn {
   width: 220px;
   text-align: center;
-  margin: 5px 0;
+  margin: 10px 0;
 }
 
 .start-btn,
 .next-btn,
 .end-btn {
-  font-size: 1.2rem;
+  --hue: var(--hue-neutral);
   padding: 10px 20px;
   font-weight: bold;
   background-color: #fff;
@@ -122,7 +143,16 @@ body.wrong {
   bottom: 10px;
 }
 
-
+.start-btn {
+  display: flex;
+  background-color: rgb(64,61,86);
+  font-size: 1.2rem;
+  color: #fff;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
 
 /*  */
 .small-font {
@@ -141,7 +171,7 @@ body.wrong {
   --hue: var(--hue-neutral);
   position: fixed;
   bottom: 15px;
-  color: hsl(var(--hue), 100%, 30%);
+  color: rgb(64,61,86);
   font-size: 0.95rem;
 }
 
@@ -158,7 +188,7 @@ body.wrong {
 
 .score-text,
 .score-value {
-  color: hsl(200, 100%, 25%);
+  color: rgb(64,61,86);
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
@@ -169,7 +199,7 @@ body.wrong {
 }
 
 .time-remaining {
-  color: hsl(200, 100%, 25%);
+  color: rgb(64,61,86);
 }
 
 .pin {
@@ -201,17 +231,17 @@ body.wrong {
 
 .play-again-text {
   text-align: center;
-  color: hsl(200, 100%, 25%);
+  color: rgb(64,61,86);
 }
 
 .play-again-btn:hover {
   --hue: var(--hue-correct);
-  border-color: hsl(var(--hue), 100%, 70%);
+  border-color: rgb(64,61,86);
 }
 
 .quit-btn:hover {
   --hue: var(--hue-wrong);
-  border-color: hsl(var(--hue), 100%, 70%);
+  border-color: rgb(64,61,86);
 }
 /* .score-section {
   display: flex;
@@ -227,4 +257,10 @@ body.wrong {
 
 .hide {
   display: none;
+}
+
+.quiz-img {
+  margin-left: 10%;
+  height: 500px;
+  width: 500px;
 }

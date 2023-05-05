@@ -66,6 +66,7 @@ export const questions = [
     question: "What is the correct syntax for an external JS file?",
     answers: [
       { text: "<script src='myscript.js'></script>", correct: true },
+      { text: "<link src='myscript.js'></lin>", correct: false },
       {
         text: "<link rel='script' type='text/js' href='myscript.js'>",
         correct: false,

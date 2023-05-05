@@ -48,7 +48,7 @@ body.wrong {
 
 .container {
   position: relative;
-  width: 800px;
+  width: 700px;
   max-width: 70%;
   background-color: #fff;
   padding: 20px;
@@ -66,14 +66,14 @@ body.wrong {
 
 .btn {
   --hue: var(--hue-neutral);
-  border: 0.8px solid hsl(var(--hue), 100%, 30%);
+  border: 0.5px solid hsl(var(--hue), 100%, 30%);
   /* background-color: hsl(var(--hue), 100%, 50%); */
   border-radius: 6px;
   padding: 10px 5px;
   color: #464545;
   outline: none;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
   font-size: 18px;
 }
 
@@ -182,8 +182,8 @@ body.wrong {
 .question {
   color: #464545;
   margin-bottom: 10px;
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
 
 .play-btns {

@@ -48,6 +48,7 @@ nextBtn.addEventListener("click", () => {
 
 function startQuiz() {
   console.log("Started");
+  questionContainerElement.classList.remove("hide");
   scoreElement.innerText = 0
   containerElement.style.boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px";
   containerElement.style.backgroundColor = "#fff";
@@ -56,7 +57,6 @@ function startQuiz() {
   instructionBtn.classList.add("hide");
   aboutBtn.classList.add("hide");
   scoreSectionElement.classList.add('hide')
-  questionContainerElement.classList.remove("hide");
 
   shuffleQuestionsAndAnswers();
 

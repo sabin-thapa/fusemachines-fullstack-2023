@@ -1381,7 +1381,7 @@ A quiz app is built using plain HTML, CSS and JS.
 3. Score card
 4. Instant score updates
 
-### Screenshots
+### Screenshots - Version 1
 
 #### Homepage
 ![image](https://user-images.githubusercontent.com/51270026/235934753-77803ebe-2f81-4537-8b93-b3869063b8f9.png)
@@ -1397,4 +1397,21 @@ A quiz app is built using plain HTML, CSS and JS.
 
 #### Score card
 ![image](https://user-images.githubusercontent.com/51270026/235935394-68c6001d-48d0-424f-957d-52d5e07bf10c.png)
+
+### Screenshots - Version 2
+
+#### Homepage
+![image](https://user-images.githubusercontent.com/51270026/236383016-9b84ac34-25f7-4947-a9de-4179c1e8ac9e.png)
+
+#### Quiz Page
+![image](https://user-images.githubusercontent.com/51270026/236383046-ad6e5248-72d5-4f03-b85e-421262411cc6.png)
+
+#### Question Card
+![image](https://user-images.githubusercontent.com/51270026/236383098-61d2d8f0-7d41-4649-aa2b-702e88e09f12.png)
+
+#### Score card
+![image](https://user-images.githubusercontent.com/51270026/236383109-02d58213-afbf-4567-be27-9ee03687f1bf.png)
+
+#### Results Page
+![image](https://user-images.githubusercontent.com/51270026/236383206-983f683c-26b5-4f99-bb95-f4be8e79529e.png)
 

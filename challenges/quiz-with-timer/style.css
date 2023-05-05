@@ -52,6 +52,10 @@ body.wrong {
   border-bottom: 1px dotted rgb(64,61,86);
 }
 
+.header-question {
+  color: rgb(64,61,86);
+}
+
 .main-nav > h1 {
   position: fixed;
   left:28%;
@@ -66,7 +70,7 @@ body.wrong {
 
 .container {
   position: relative;
-  width: 700px;
+  width: 800px;
   max-width: 70%;
   background-color: #fff;
   padding: 20px;

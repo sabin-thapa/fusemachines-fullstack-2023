@@ -11,6 +11,7 @@ There are branches for each day. Since the first day was our orientation, there'
 - [Day9 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day9) | [Day9 Docs](#day9)
 - [Day10 Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day10) | [Day10 Docs](#day10)
 - [Challenges Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/challenges) | [Quiz Challenge Docs](#quiz-challenge)
+- [Learning Redux Toolkit Branch](https://github.com/sabin-thapa/fusemachines-fullstack-2023/tree/day22) | [Day22 Docs](#day22)
 
 
 ``` Apr 17 - Day 1 ``` <br /> 
@@ -1414,4 +1415,69 @@ A quiz app is built using plain HTML, CSS and JS.
 
 #### Results Page
 ![image](https://user-images.githubusercontent.com/51270026/236383206-983f683c-26b5-4f99-bb95-f4be8e79529e.png)
+
+<hr />
+
+``` May 8 - Day 22 ``` <a name="day22"> </a>
+
+# Learning Redux and Redux Toolkit <br />
+[Project Folder](./redux-toolkit/)
+
+Redux is a predictable state management library for JavaScript applications. It provides a centralized store to manage the state of an application and enables components to access and update that state. Redux follows a unidirectional data flow, making it easier to track state changes and debug applications. Redux Toolkit is the official recommended toolset for building Redux applications. It simplifies the process of working with Redux by providing a set of opinionated utilities and abstractions.
+
+### Reducers
+Reducers are pure functions that specify how the application's state should change in response to actions. They take the current state and an action as input and return the new state. In Redux Toolkit, reducers are typically defined using the createSlice function, which automatically generates action creators and action types.
+
+### ExtraReducers
+The `extraReducers` field in Redux Toolkit's `createSlice` function allows you to define additional reducer logic outside of the slice's reducer function. This is useful when you need to handle actions that are not specific to a single slice. You can use extraReducers to add case reducers for actions defined in other slices or global actions.
+
+### createAsyncThunk
+`createAsyncThunk` is a Redux Toolkit function that simplifies handling asynchronous logic in Redux. It generates an action creator that dispatches pending, fulfilled, and rejected actions based on the lifecycle of an asynchronous operation. It is commonly used with APIs to fetch data or perform other asynchronous operations. Example
+
+```js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { useSelector, useDispatch } from 'react-redux';
+
+// Define a slice
+const counterSlice = createSlice({
+  name: 'counter',
+  initialState: 0,
+  reducers: {
+    increment: (state) => state + 1,
+    decrement: (state) => state - 1,
+  },
+});
+
+// Define an async thunk
+const fetchUser = createAsyncThunk('user/fetchUser', async (userId) => {
+  const response = await fetch(`/api/user/${userId}`);
+  const data = await response.json();
+  return data;
+});
+
+// Use in a React component
+const Counter = () => {
+  const count = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+
+  const handleIncrement = () => {
+    dispatch(counterSlice.actions.increment());
+  };
+
+  const handleFetchUser = () => {
+    dispatch(fetchUser(123));
+  };
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={handleIncrement}>Increment</button>
+      <button onClick={handleFetchUser}>Fetch User</button>
+    </div>
+  );
+};
+
+```
+In this example, we define a slice using createSlice with reducers for incrementing and decrementing a counter. We also define an async thunk using createAsyncThunk to fetch a user from an API. The Redux state is accessed using useSelector and actions are dispatched using useDispatch in a React component.
+
 
